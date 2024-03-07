@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:dio/dio.dart' as dio;
@@ -37,6 +38,7 @@ class AppApiService extends GetxService {
       if (response.data == null) throw NullHTTPReponseException(path, data);
       return APIResponse<T>.fromMap(Map<String, dynamic>.from(response.data!));
     } on dio.DioException catch (e) {
+      log(e.toString());
       throw _handleDioError(e);
     } on SocketException catch (e) {
       throw UnknownHttpException('Pre error:', e.toString());

@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:math';
 
 import 'package:get/get.dart';
 import 'package:investwise_new/core/service/app_api_service.dart';
@@ -23,15 +24,23 @@ class AppAuthRepository {
   }
 
   Future<User> signIn(String phone, String pin) async {
-    APIResponse<Map<String, dynamic>> response = await _appApiService.post(
-      '/users/login',
-      data: {
-        'phone': phone,
-        'pin': pin,
-      },
-    );
-    log(response.data.toString());
-    return User.fromMap(response.data['data']);
+    try {
+      APIResponse<Map<String, dynamic>> response = await _appApiService.post(
+        '/users/login',
+        data: {
+          'phone': phone,
+          'pin': pin,
+        },
+      );
+
+      if (response.data['data'] == null) {
+        throw Exception(response.msg);
+      } else {
+        return User.fromMap(response.data['data']);
+      }
+    } catch (e) {
+      rethrow;
+    }
   }
 
   Future<String> requestOTP(String email) async {
