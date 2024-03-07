@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:investwise_new/core/constants/theme/app_theme.dart';
+import 'package:investwise_new/presentation/shared/widget/company_logo.dart';
 
 class PaymentScreen extends StatelessWidget {
   const PaymentScreen({super.key});
@@ -6,24 +10,55 @@ class PaymentScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: const BackButton(), // You can make this interactive.
-        title: const Text('Preview Buy'),
-      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            const Card(
+            Container(
+              margin: EdgeInsets.only(top: 45.h),
+              child: Row(
+                children: [
+                  IconButton(
+                      onPressed: Get.back,
+                      icon: Icon(Icons.arrow_back, size: 28.sp)),
+                  SizedBox(width: 5.w),
+                  Text(
+                    "Preview Buy",
+                    style: AppTextTheme.PR_SANSHeaderStyle,
+                  )
+                ],
+              ),
+            ),
+            Card(
               child: Padding(
-                padding: EdgeInsets.all(16.0),
+                padding: const EdgeInsets.all(16.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    ListTile(
-                      leading: Icon(Icons.music_note), // Spotify Icon
-                      title: Text('Spotify'),
-                      subtitle: Text('SPOT'),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            const CompanyLogoWidget(
+                                image: "assets/company_logo/airlines.png"),
+                            const SizedBox(width: 15),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Spotify',
+                                  style: AppTextTheme.PR_SANSSubTitleStyle,
+                                ),
+                                SizedBox(height: 8.h),
+                                const Text('SPOT')
+                              ],
+                            )
+                          ],
+                        ),
+                        const Text('Buy in ETB')
+                      ],
                     ),
                     Divider(),
                     Text('Market Price'),
