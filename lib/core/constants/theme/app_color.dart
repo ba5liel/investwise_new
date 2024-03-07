@@ -11,6 +11,8 @@ class AppColors {
   static const shadowColor = Colors.black87;
   static const textBoxColor = Colors.white;
 
+  static const greyishColor = Color(0xfff8f8f8);
+
   static const bottomBarColor = Colors.white;
   static const inActiveColor = Colors.grey;
 
@@ -35,7 +37,7 @@ class AppColors {
   static const borderColor1 = Color.fromRGBO(0, 0, 0, 0.2);
   static const darkGrayColor = Color.fromRGBO(95, 95, 95, 1);
   static const black60Color = Color.fromRGBO(0, 0, 0, 0.6);
-  static const greenColor = Color(0xff058C2B);
+  static const greenColor = Color(0xff09c87c);
   static const greenConfirmationColor = Color(0xff00A65A);
   static const lightGreenColor = Color.fromRGBO(5, 140, 43, 0.2);
   static const blackColor = Colors.black;
