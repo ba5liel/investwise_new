@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:pinput/pinput.dart';
 
@@ -30,8 +31,8 @@ class _OtpInputState extends State<OtpInput> {
   @override
   Widget build(BuildContext context) {
     final defaultPinTheme = PinTheme(
-      width: 66.0,
-      height: 66.0,
+      width: 80.0.w,
+      height: 80.0.h,
       textStyle: const TextStyle(
         fontSize: 30.0,
         color: Colors.white,
@@ -45,8 +46,9 @@ class _OtpInputState extends State<OtpInput> {
     );
 
     return SizedBox(
-      height: 68,
+      height: 80.h,
       child: Pinput(
+        length: widget.maxLength,
         controller: widget.controller,
         keyboardType: widget.keyboardType,
         inputFormatters: [

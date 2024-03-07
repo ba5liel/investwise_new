@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:investwise_new/presentation/auth/login/login_controller.dart';
 import 'package:investwise_new/presentation/shared/app_button.dart';
 import 'package:investwise_new/presentation/shared/otp_input.dart';
+import 'package:investwise_new/routes/app_routes.dart';
 
 class OtpPage extends GetView<LoginController> {
   const OtpPage({super.key});
@@ -26,23 +27,30 @@ class OtpPage extends GetView<LoginController> {
               Column(
                 children: [
                   const SizedBox(height: 20),
-                  const Text(
-                    "You have got a 4-digit code",
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(height: 10),
-                  const Text(
-                    "We have sent a 4-digit code to your phone number and enter the code below",
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.normal,
-                    ),
+                  const Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "You have got a 6-digit code",
+                        style: TextStyle(
+                            fontSize: 24, fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(height: 10),
+                      Text(
+                        "We have sent a 6-digit code to your phone number and enter the code below",
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.normal,
+                        ),
+                      ),
+                    ],
                   ),
                   const SizedBox(height: 50),
                   OtpInput(
                     controller: TextEditingController(),
                     keyboardType: TextInputType.number,
-                    maxLength: 4,
+                    maxLength: 6,
                     validator: (value) {
                       if (value!.isEmpty) {
                         return 'Please enter a valid code';
@@ -78,7 +86,9 @@ class OtpPage extends GetView<LoginController> {
               SizedBox(
                 width: isKeyboardOpen ? Get.width : Get.width * 0.8,
                 child: AppButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Get.toNamed(AppRoutes.Pin);
+                  },
                   text: "Confirm",
                 ),
               ),
