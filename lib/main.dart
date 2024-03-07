@@ -19,7 +19,7 @@ class MainPage extends StatelessWidget {
       builder: (context, _) => GetMaterialApp(
         title: 'Invest wise',
         debugShowCheckedModeBanner: false,
-        initialRoute: AppRoutes.paymentConfirmation,
+        initialRoute: AppRoutes.home,
         getPages: AppPages.pages,
         theme: AppTheme.appTheme,
       ),

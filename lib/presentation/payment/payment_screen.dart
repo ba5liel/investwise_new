@@ -51,9 +51,9 @@ class PaymentScreen extends StatelessWidget {
               },
               child: const Text('Buy Now'),
               style: ElevatedButton.styleFrom(
-                primary: Colors.green, // background (button) color
-                onPrimary: Colors.white, // foreground (text) color
-              ),
+                  // primary: Colors.green, // background (button) color
+                  // onPrimary: Colors.white, // foreground (text) color
+                  ),
             ),
           ],
         ),
