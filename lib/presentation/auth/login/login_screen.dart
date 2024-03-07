@@ -49,7 +49,7 @@ class LoginScreen extends GetView<LoginController> {
               width: Get.width * 0.8,
               child: TextInput(
                 text: 'Pin Number',
-                controller: controller.phoneNumber,
+                controller: controller.pinNumber,
                 keyboardType: TextInputType.number,
                 onChanged: (value) {},
               )),
@@ -60,7 +60,7 @@ class LoginScreen extends GetView<LoginController> {
             width: Get.width * 0.8,
             child: AppButton(
               onPressed: () {
-                Get.toNamed(AppRoutes.otp);
+                controller.login();
               },
               text: 'Login',
             ),

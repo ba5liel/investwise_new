@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:investwise_new/core/constants/theme/app_theme.dart';
@@ -11,11 +12,12 @@ import 'package:investwise_new/routes/app_routes.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // await initAppService();
-  Get.put(AppStorageService());
+
+  // Get.put(AppStorageService());
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  await initAppService();
   runApp(const MainPage());
 }
 
@@ -32,6 +34,7 @@ class MainPage extends StatelessWidget {
         initialRoute: AppRoutes.login,
         getPages: AppPages.pages,
         theme: AppTheme.appTheme,
+        builder: EasyLoading.init(),
       ),
     );
   }

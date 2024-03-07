@@ -71,7 +71,7 @@ class AuthService extends GetxService {
               if (exception.code == "invalid-phone-number") {
                 onError("Invalid phone number");
               } else {
-                onError("Something went wrong (SMS Quota exceeded)");
+                onError(exception.message!);
               }
             },
             codeSent: (verificationId, resendToken) {

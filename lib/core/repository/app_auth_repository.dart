@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:get/get.dart';
 import 'package:investwise_new/core/service/app_api_service.dart';
 import 'package:investwise_new/core/modal/response/api_response.dart';
@@ -8,7 +10,7 @@ class AppAuthRepository {
 
   Future<User> signUp(String fullName, String email, String password) async {
     APIResponse<Map<String, dynamic>> response = await _appApiService.post(
-      '/signup',
+      'users/signup',
       data: {
         'name': fullName,
         'email': email,
@@ -20,37 +22,15 @@ class AppAuthRepository {
     return User.fromMap(response.data['data']);
   }
 
-  Future<User> signWithGoogle(String token) async {
+  Future<User> signIn(String phone, String pin) async {
     APIResponse<Map<String, dynamic>> response = await _appApiService.post(
-      '/oauth/google',
+      '/users/login',
       data: {
-        'token': token,
+        'phone': phone,
+        'pin': pin,
       },
     );
-
-    return User.fromMap(response.data['data']);
-  }
-
-  Future<User> signWithFacebook(String token) async {
-    APIResponse<Map<String, dynamic>> response = await _appApiService.post(
-      '/oauth/facebook',
-      data: {
-        'token': token,
-      },
-    );
-
-    return User.fromMap(response.data['data']);
-  }
-
-  Future<User> signIn(String email, String password) async {
-    APIResponse<Map<String, dynamic>> response = await _appApiService.post(
-      '/login',
-      data: {
-        'username_email': email,
-        'password': password,
-      },
-    );
-
+    log(response.data.toString());
     return User.fromMap(response.data['data']);
   }
 

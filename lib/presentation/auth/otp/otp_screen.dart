@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:investwise_new/presentation/auth/login/login_controller.dart';
+import 'package:investwise_new/presentation/auth/otp/otp_controller.dart';
 import 'package:investwise_new/presentation/shared/app_button.dart';
 import 'package:investwise_new/presentation/shared/otp_input.dart';
 import 'package:investwise_new/routes/app_routes.dart';
 
-class OtpPage extends GetView<LoginController> {
+class OtpPage extends GetView<OTPController> {
   const OtpPage({super.key});
 
   @override
@@ -48,7 +49,7 @@ class OtpPage extends GetView<LoginController> {
                   ),
                   const SizedBox(height: 50),
                   OtpInput(
-                    controller: TextEditingController(),
+                    controller: controller.otp,
                     keyboardType: TextInputType.number,
                     maxLength: 6,
                     validator: (value) {
@@ -87,7 +88,7 @@ class OtpPage extends GetView<LoginController> {
                 width: isKeyboardOpen ? Get.width : Get.width * 0.8,
                 child: AppButton(
                   onPressed: () {
-                    Get.toNamed(AppRoutes.Pin);
+                    controller.confirmOTP();
                   },
                   text: "Confirm",
                 ),

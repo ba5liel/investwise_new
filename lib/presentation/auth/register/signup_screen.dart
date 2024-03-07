@@ -83,7 +83,7 @@ class SignUpScreen extends GetView<SignupController> {
             width: Get.width * 0.8,
             child: AppButton(
               onPressed: () {
-                Get.toNamed(AppRoutes.otp);
+                Get.toNamed(AppRoutes.Pin);
               },
               text: 'Register',
             ),
