@@ -41,7 +41,7 @@ Future<T?> showGenericDialog<T>({
                     Text(
                       title,
                       textAlign: TextAlign.center,
-                      style: AppTextTheme.HK_F20W700CBlack,
+                      style: AppTextTheme.PR_SANS20W700CBlack,
                     ),
                     (content != null)
                         ? Column(
@@ -51,7 +51,7 @@ Future<T?> showGenericDialog<T>({
                               ),
                               Text(
                                 content,
-                                style: AppTextTheme.HK_F14W400CBlack60,
+                                style: AppTextTheme.PR_SANS14W400CBlack60,
                               )
                             ],
                           )
@@ -71,7 +71,7 @@ Future<T?> showGenericDialog<T>({
                                 style: ButtonStyle(
                                   textStyle: MaterialStateProperty.resolveWith(
                                       (states) {
-                                    return AppTextTheme.HK_F20W700CWhite;
+                                    return AppTextTheme.PR_SANS20W700CWhite;
                                   }),
                                   overlayColor:
                                       MaterialStateProperty.all<Color>(
