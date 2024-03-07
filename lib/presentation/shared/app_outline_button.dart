@@ -33,7 +33,7 @@ class _AppButtonOutlineState extends State<AppButtonOutline> {
                 widget.isButtonEnabled ? const Color(0xff24d598) : Colors.grey,
           ),
         ),
-        onPressed: widget.isButtonEnabled ? () => _onButtonPressed() : null,
+        onPressed: widget.isButtonEnabled ? () => widget.onPressed() : null,
         child: Text(
           widget.text,
           style: TextStyle(
@@ -45,10 +45,5 @@ class _AppButtonOutlineState extends State<AppButtonOutline> {
         ),
       ),
     );
-  }
-
-  void _onButtonPressed() {
-    // Add your button press logic here
-    print('Button Pressed!');
   }
 }

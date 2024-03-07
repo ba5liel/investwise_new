@@ -1,6 +1,7 @@
 import 'package:get/route_manager.dart';
 import 'package:investwise_new/presentation/auth/login/login_binding.dart';
 import 'package:investwise_new/presentation/auth/login/login_screen.dart';
+import 'package:investwise_new/presentation/auth/otp/otp_screen.dart';
 import 'package:investwise_new/presentation/home/home_binding.dart';
 import 'package:investwise_new/presentation/home/home_screen.dart';
 import 'package:investwise_new/routes/app_routes.dart';
@@ -16,6 +17,14 @@ class AppPages {
     GetPage(
         name: AppRoutes.login,
         page: () => const LoginScreen(),
+        binding: LoginBinding()),
+    GetPage(
+        name: AppRoutes.otp,
+        page: () => const OtpPage(),
+        binding: LoginBinding()),
+    GetPage(
+        name: AppRoutes.otp,
+        page: () => const OtpPage(),
         binding: LoginBinding()),
   ];
 }
