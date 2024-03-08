@@ -4,8 +4,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
+import 'package:investwise_new/core/constants/storage_keys.dart';
+import 'package:investwise_new/core/modal/user.dart';
 import 'package:investwise_new/core/repository/app_auth_repository.dart';
 import 'package:investwise_new/core/service/app_auth_service.dart';
+import 'package:investwise_new/core/service/app_storage_service.dart';
 import 'package:investwise_new/presentation/auth/otp/otp_controller.dart';
 import 'package:investwise_new/presentation/home/home_screen.dart';
 import 'package:investwise_new/routes/app_routes.dart';
@@ -13,12 +16,14 @@ import 'package:investwise_new/routes/app_routes.dart';
 class LoginController extends GetxController {
   final _authService = Get.put(AuthService());
   final _authRepository = Get.put(AppAuthRepository());
+  final _storage = Get.find<AppStorageService>();
 
   final TextEditingController phoneNumber = TextEditingController();
   final TextEditingController pinNumber = TextEditingController();
 
   //validate login with phone and pin
   Future<void> login() async {
+    log("0mnbsndb");
     final phone = phoneNumber.text;
     final pin = pinNumber.text;
 
@@ -35,7 +40,9 @@ class LoginController extends GetxController {
 
     final users = await _authRepository.signIn(phoneValidation(phone), pin);
     if (users) {
+      log("log 1");
       loginWithPhone(phoneValidation(phone));
+      log("log 2");
     } else {
       clearForm();
       return;
@@ -99,7 +106,8 @@ class LoginController extends GetxController {
 
     userCredential.user?.getIdToken().then((value) {
       if (value != null) {
-        Get.to(const HomeScreen());
+        EasyLoading.dismiss();
+        Get.toNamed(AppRoutes.dashboard);
       }
     });
 

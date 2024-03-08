@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -24,6 +25,7 @@ class OTPController extends GetxController {
       EasyLoading.showError("Please enter a valid code");
       return;
     }
+    log(otp.text);
     if (onOTPCodeSubmitted != null &&
         verificationId != null &&
         otp.text.isNotEmpty) {
