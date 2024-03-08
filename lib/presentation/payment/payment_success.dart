@@ -5,13 +5,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:investwise_new/core/constants/theme/app_color.dart';
+import 'package:investwise_new/core/modal/company.dart';
+import 'package:investwise_new/core/service/app_auth_service.dart';
+import 'package:investwise_new/core/utils/formatter.dart';
 import 'package:investwise_new/presentation/shared/app_button.dart';
 import 'package:investwise_new/presentation/shared/widget/company_logo.dart';
 import 'package:investwise_new/routes/app_routes.dart';
 
 class PaymentSuccess extends StatefulWidget {
-  PaymentSuccess({Key? key}) : super(key: key);
-
+  PaymentSuccess({Key? key, required this.sell}) : super(key: key);
+  final bool sell;
   @override
   State<PaymentSuccess> createState() => _PaymentSuccessState();
 }
@@ -19,7 +22,12 @@ class PaymentSuccess extends StatefulWidget {
 class _PaymentSuccessState extends State<PaymentSuccess> {
   final ConfettiController _controllerCenter =
       ConfettiController(duration: const Duration(seconds: 10));
+
+  final AuthService _authService = Get.find<AuthService>();
+
   var args;
+  late Company company;
+  late double amount;
   @override
   void initState() {
     Future.delayed(Duration.zero, () {
@@ -30,11 +38,14 @@ class _PaymentSuccessState extends State<PaymentSuccess> {
             print('message after payment');
             print(args['message']);
             print(args);
+            company = _authService.refCompanyMap[args['ref']]!;
+            amount = _authService.refAmountMap[args['ref']]!;
           }
         }
       });
-      _controllerCenter.play();
     });
+
+    _controllerCenter.play();
 
     super.initState();
   }
@@ -47,8 +58,7 @@ class _PaymentSuccessState extends State<PaymentSuccess> {
             padding: EdgeInsets.symmetric(vertical: 150.h, horizontal: 30.w),
             child: Column(children: [
               SizedBox(width: 150.h),
-              const CompanyLogoWidget(
-                  size: 170, image: "assets/company_logo/airlines.png"),
+              CompanyLogoWidget(size: 170, image: company.image),
               Stack(children: <Widget>[
                 Align(
                   alignment: Alignment.center,
@@ -80,7 +90,7 @@ class _PaymentSuccessState extends State<PaymentSuccess> {
                             _controllerCenter.play();
                           },
                           child: Text(
-                            "\$10,000",
+                            AppFormatter.formatCurrency(amount),
                             style: TextStyle(
                                 color: AppColors.greenColor,
                                 fontSize: 45.sp,

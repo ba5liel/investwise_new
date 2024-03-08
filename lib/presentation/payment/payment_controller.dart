@@ -24,6 +24,8 @@ class PaymentController extends GetxController {
       );
       var ref = await _appPaymentRepository.buy(company, amount);
       EasyLoading.dismiss();
+      _authService.refCompanyMap.addAll({ref: company});
+      _authService.refAmountMap.addAll({ref: amount});
       return ref;
     } catch (e) {
       EasyLoading.show(status: e.toString());
@@ -56,7 +58,7 @@ class PaymentController extends GetxController {
       optionsBuilder: () => {
         'Confirm': () {
           Get.back();
-          if (checkPin(pinController.text)) {
+          if (!checkPin(pinController.text)) {
             return showError();
           }
           _make_payment(company, amount);
@@ -97,7 +99,7 @@ class PaymentController extends GetxController {
       context: Get.context!, // context
       publicKey: 'CHASECK_TEST-Pi4OhLe2XV3Aw3Qpt7eZHaugKMe1HKvm',
       currency: 'etb',
-      amount: '1050',
+      amount: '$amount',
       email: 'xyz@gmail.com',
       phone: '251911223344',
       firstName: 'testname',
