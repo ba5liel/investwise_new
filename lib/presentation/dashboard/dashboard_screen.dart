@@ -6,11 +6,12 @@ import 'package:investwise_new/core/constants/theme/app_color.dart';
 import 'package:investwise_new/presentation/dashboard/dashboard_controller.dart';
 import 'package:investwise_new/presentation/discover/discover_screen.dart';
 import 'package:investwise_new/presentation/home/home_screen.dart';
+import 'package:investwise_new/presentation/profile/profile_screen.dart';
 
 class DashboardScreen extends StatelessWidget {
   DashboardScreen({super.key});
 
-  final widgets = [HomeScreen(), DiscoverScreen()];
+  final widgets = [HomeScreen(), DiscoverScreen(), ProfileScreen()];
 
   final DashboardController dashboardController =
       Get.find<DashboardController>();
@@ -55,15 +56,15 @@ class DashboardScreen extends StatelessWidget {
             BottomNavigationBarItem(
                 icon: FaIcon(
                   FontAwesomeIcons.compass,
-                  color: AppColors.green,
-                ),
-                label: "Discover"),
-            BottomNavigationBarItem(
-                icon: FaIcon(
-                  FontAwesomeIcons.chartArea,
-                  color: AppColors.green,
+                  color: AppColors.greenColor,
                 ),
                 label: "Portfolio"),
+            // BottomNavigationBarItem(
+            //     icon: FaIcon(
+            //       FontAwesomeIcons.chartArea,
+            //       color: AppColors.green,
+            //     ),
+            //     label: "Portfolio"),
             BottomNavigationBarItem(
                 icon: FaIcon(
                   FontAwesomeIcons.userCircle,
