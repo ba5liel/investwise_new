@@ -19,7 +19,7 @@ class AppAuthRepository {
     EasyLoading.show(
       status: "Loading...",
     );
-    APIResponse<Map<String, dynamic>> response = await _appApiService.post(
+    final response = await _appApiService.post(
       'users/signup',
       data: {
         'name': fullName,
@@ -62,8 +62,6 @@ class AppAuthRepository {
       },
     );
 
-    log(response.data.toString());
-
     if (response.data == null) {
       EasyLoading.showError("Please add the valid phone number and pin");
       EasyLoading.dismiss();
@@ -73,6 +71,7 @@ class AppAuthRepository {
     if (response.data is Map<String, dynamic> &&
         response.data.containsKey('data')) {
       final userData = UserData.fromMap(response.data['data']);
+      log(userData.toString());
       _storage.write(StorageKeys.currentUserKey, userData);
       _authService.currentUser = userData;
       EasyLoading.dismiss();

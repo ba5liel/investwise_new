@@ -5,11 +5,14 @@ import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:investwise_new/core/constants/theme/app_color.dart';
+import 'package:investwise_new/presentation/home/home_controller.dart';
 import 'package:investwise_new/presentation/shared/my_stock.dart';
 import 'package:investwise_new/presentation/shared/top_compay.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+  HomeScreen({super.key});
+
+  final HomeController _homeController = Get.put(HomeController());
 
   @override
   Widget build(BuildContext context) {
@@ -21,9 +24,6 @@ class HomeScreen extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(20),
                 decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(40),
-                      topRight: Radius.circular(40)),
                   // image: DecorationImage(image: AssetImage("assets/green.jpg"), fit: BoxFit.contain)
                   gradient: LinearGradient(
                     begin: Alignment.topCenter,
@@ -47,7 +47,7 @@ class HomeScreen extends StatelessWidget {
                           Row(
                             children: [
                               Container(
-                                child: FaIcon(
+                                child: const FaIcon(
                                   FontAwesomeIcons.chartColumn,
                                   color: AppColors.whiteColor,
                                 ),
@@ -55,7 +55,7 @@ class HomeScreen extends StatelessWidget {
                               const SizedBox(
                                 width: 10,
                               ),
-                              Text(
+                              const Text(
                                 "InvestWise",
                                 style: TextStyle(
                                   fontSize: 16,
@@ -71,7 +71,7 @@ class HomeScreen extends StatelessWidget {
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(100),
                                 color: AppColors.black20Color),
-                            child: FaIcon(
+                            child: const FaIcon(
                               FontAwesomeIcons.bell,
                               color: AppColors.whiteColor,
                             ),
@@ -81,7 +81,7 @@ class HomeScreen extends StatelessWidget {
                       const SizedBox(
                         height: 30,
                       ),
-                      Text(
+                      const Text(
                         "2,900,000 Br.",
                         style: TextStyle(
                             fontSize: 40,
@@ -92,7 +92,7 @@ class HomeScreen extends StatelessWidget {
                       const SizedBox(
                         height: 10,
                       ),
-                      Text(
+                      const Text(
                         "Total Stock Balance",
                         style: TextStyle(
                           fontSize: 14,
@@ -130,14 +130,22 @@ class HomeScreen extends StatelessWidget {
                   const SizedBox(
                     height: 10,
                   ),
-                  Container(
-                    height: 140,
-                    width: Get.width,
-                    child: ListView(
-                      scrollDirection: Axis.horizontal,
-                      children: [TopCompany(), TopCompany(), TopCompany()],
-                    ),
-                  ),
+                  Obx(() => _homeController.companies.isEmpty
+                      ? Container()
+                      : Container(
+                          height: 140,
+                          width: Get.width,
+                          child: ListView.builder(
+                            itemCount: _homeController.companies.length,
+                            itemBuilder: (context, index) {
+                              return TopCompany(
+                                  _homeController.companies[index].name,
+                                  _homeController.companies[index].image,
+                                  index);
+                            },
+                            scrollDirection: Axis.horizontal,
+                          ),
+                        )),
                   const SizedBox(
                     height: 10,
                   ),

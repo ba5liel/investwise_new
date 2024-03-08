@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:investwise_new/presentation/home/home_controller.dart';
+import 'package:investwise_new/presentation/shared/my_stock_dynamic.dart';
 import 'package:investwise_new/routes/app_routes.dart';
 import 'package:mrx_charts/mrx_charts.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
@@ -25,20 +27,19 @@ class CompanyDetailScreen extends StatelessWidget {
     SalesData(new DateTime(20177), 45),
   ];
 
+  final int index = int.parse(Get.parameters["index"]!);
+  final HomeController _homeController = Get.find<HomeController>();
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         body: Container(
-          color: AppColors.blackColor,
           child: Column(
             children: [
               Container(
                 padding: const EdgeInsets.all(20),
                 decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(40),
-                      topRight: Radius.circular(40)),
                   // image: DecorationImage(image: AssetImage("assets/green.jpg"), fit: BoxFit.contain)
                   gradient: LinearGradient(
                     begin: Alignment.topCenter,
@@ -86,7 +87,10 @@ class CompanyDetailScreen extends StatelessWidget {
                           )
                         ],
                       ),
-                      MyStock("assets/coop.png"),
+                      Obx(() => MyStockDynamic(
+                          _homeController.companies[index].image,
+                          _homeController.companies[index!].name,
+                          _homeController.companies[index!].pricePerShare)),
                       const SizedBox(
                         height: 10,
                       ),
@@ -149,15 +153,17 @@ class CompanyDetailScreen extends StatelessWidget {
                           decoration: BoxDecoration(
                               color: Colors.grey.shade200,
                               borderRadius: BorderRadius.circular(10)),
-                          child: const Column(
+                          child: Column(
                             children: [
-                              Text(
-                                "200,000 Br",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    fontFamily: "PTSans",
-                                    fontSize: 36,
-                                    fontWeight: FontWeight.bold),
+                              Obx(
+                                () => Text(
+                                  "${_homeController.companies[index!].pricePerShare} Br",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontFamily: "PTSans",
+                                      fontSize: 36,
+                                      fontWeight: FontWeight.bold),
+                                ),
                               ),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -191,17 +197,118 @@ class CompanyDetailScreen extends StatelessWidget {
                         const SizedBox(
                           height: 10,
                         ),
-                        Container(
-                          width: Get.width,
-                          child: const Text(
-                            "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
-                            textAlign: TextAlign.justify,
-                            style: TextStyle(
-                                fontFamily: "PTSans",
-                                fontSize: 16,
-                                height: 1.8),
-                          ),
-                        ),
+                        Obx(() => Expanded(
+                              child: ListView(
+                                scrollDirection: Axis.vertical,
+                                children: [
+                                  Container(
+                                    padding: const EdgeInsets.all(20),
+                                    decoration: BoxDecoration(
+                                        color: AppColors.backgroundColor2,
+                                        borderRadius:
+                                            BorderRadius.circular(20)),
+                                    child: Column(
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              "Available Shares",
+                                              style: TextStyle(
+                                                fontSize: 16,
+                                                fontFamily: "PTSans",
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                            Text(
+                                              "${_homeController.companies[index].avlShares}",
+                                              style: TextStyle(
+                                                  fontSize: 14,
+                                                  fontFamily: "PTSans",
+                                                  fontWeight: FontWeight.bold,
+                                                  color: AppColors.greenColor),
+                                            ),
+                                          ],
+                                        ),
+                                        const SizedBox(height: 18),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              "Price Per Share",
+                                              style: TextStyle(
+                                                fontSize: 16,
+                                                fontFamily: "PTSans",
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                            Text(
+                                              "${_homeController.companies[index].pricePerShare} Br.",
+                                              style: TextStyle(
+                                                  fontSize: 14,
+                                                  fontFamily: "PTSans",
+                                                  fontWeight: FontWeight.bold,
+                                                  color: AppColors.greenColor),
+                                            ),
+                                          ],
+                                        ),
+                                        SizedBox(height: 18),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              "Fee",
+                                              style: TextStyle(
+                                                fontSize: 16,
+                                                fontFamily: "PTSans",
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                            Text(
+                                              "300 Br.",
+                                              style: TextStyle(
+                                                  fontSize: 14,
+                                                  fontFamily: "PTSans",
+                                                  fontWeight: FontWeight.bold,
+                                                  color: AppColors.greenColor),
+                                            ),
+                                          ],
+                                        ),
+                                        SizedBox(height: 18),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              "Total Shares",
+                                              style: TextStyle(
+                                                fontSize: 16,
+                                                fontFamily: "PTSans",
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                            Text(
+                                              "${_homeController.companies[index].totalShares}",
+                                              style: TextStyle(
+                                                  fontSize: 14,
+                                                  fontFamily: "PTSans",
+                                                  fontWeight: FontWeight.bold,
+                                                  color: AppColors.greenColor),
+                                            ),
+                                          ],
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                ],
+                              ),
+                            )),
                         const SizedBox(
                           height: 20,
                         ),

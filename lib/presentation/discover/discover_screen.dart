@@ -16,7 +16,6 @@ class DiscoverScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: AppColors.blackColor,
       child: Column(
         children: [
           Stack(
@@ -24,9 +23,6 @@ class DiscoverScreen extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(20),
                 decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(40),
-                      topRight: Radius.circular(40)),
                   // image: DecorationImage(image: AssetImage("assets/green.jpg"), fit: BoxFit.contain)
                   gradient: LinearGradient(
                     begin: Alignment.topCenter,

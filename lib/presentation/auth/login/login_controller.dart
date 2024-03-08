@@ -99,7 +99,7 @@ class LoginController extends GetxController {
 
     userCredential.user?.getIdToken().then((value) {
       if (value != null) {
-        Get.to(const HomeScreen());
+        Get.to(HomeScreen());
       }
     });
 

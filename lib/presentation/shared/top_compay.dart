@@ -4,11 +4,12 @@ import 'package:get/get.dart';
 import 'package:investwise_new/core/constants/theme/app_color.dart';
 import 'package:investwise_new/routes/app_routes.dart';
 
-Widget TopCompany() {
+Widget TopCompany(String name, String image, int index) {
   return Expanded(
     child: InkWell(
       onTap: () {
-        Get.toNamed(AppRoutes.companyDetail);
+        Get.toNamed(AppRoutes.companyDetail,
+            parameters: {"index": index.toString()});
       },
       child: Container(
         margin: const EdgeInsets.only(right: 10),
@@ -28,10 +29,11 @@ Widget TopCompany() {
                   borderRadius: BorderRadius.circular(100),
                   color: AppColors.whiteColor),
               child: Center(
-                  child: FaIcon(
-                FontAwesomeIcons.building,
-                color: AppColors.greenColor,
-              )),
+                child: CircleAvatar(backgroundImage: AssetImage(image)),
+                //   child: FaIcon(
+                // FontAwesomeIcons.building,
+                // color: AppColors.greenColor,
+              ),
             ),
             const SizedBox(
               height: 8,
@@ -39,7 +41,7 @@ Widget TopCompany() {
             Column(
               children: [
                 Text(
-                  "TWTR",
+                  name,
                   style: TextStyle(
                     fontSize: 14,
                     fontFamily: "PTSans",
