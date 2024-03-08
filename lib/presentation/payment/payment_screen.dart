@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:chapasdk/chapa_payment%20initializer.dart';
+import 'package:chapasdk/chapa_payment initializer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -77,7 +77,7 @@ class PaymentScreen extends StatelessWidget {
                   SizedBox(height: 20.h),
                   Container(
                     decoration: BoxDecoration(
-                        border: Border.all(color: Color(0xfff0f0f0)),
+                        border: Border.all(color: const Color(0xfff0f0f0)),
                         color: AppColors.greyishColor,
                         borderRadius: BorderRadius.circular(20.r)),
                     padding:
@@ -142,11 +142,11 @@ class PaymentScreen extends StatelessWidget {
                       AppRoutes.chapaResult, // fall back route name
                 );
               },
-              child: const Text('Buy Now'),
               style: ElevatedButton.styleFrom(
-                primary: Colors.green, // background (button) color
-                onPrimary: Colors.white, // foreground (text) color
+                foregroundColor: Colors.white,
+                backgroundColor: Colors.green, // foreground (text) color
               ),
+              child: const Text('Buy Now'),
             ),
           ],
         ),

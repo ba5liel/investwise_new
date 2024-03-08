@@ -27,7 +27,7 @@ class _AppButtonState extends State<AppButton> {
           textStyle: const TextStyle(
               fontSize: 18, fontWeight: FontWeight.normal, color: Colors.white),
         ),
-        onPressed: widget.isButtonEnabled ? () => _onButtonPressed() : null,
+        onPressed: widget.isButtonEnabled ? () => widget.onPressed() : null,
         child: Text(
           widget.text,
           style: const TextStyle(
@@ -38,10 +38,5 @@ class _AppButtonState extends State<AppButton> {
         ),
       ),
     );
-  }
-
-  void _onButtonPressed() {
-    // Add your button press logic here
-    print('Button Pressed!');
   }
 }

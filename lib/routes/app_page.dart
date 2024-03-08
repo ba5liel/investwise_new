@@ -1,6 +1,13 @@
 import 'package:get/route_manager.dart';
 import 'package:investwise_new/presentation/auth/login/login_binding.dart';
 import 'package:investwise_new/presentation/auth/login/login_screen.dart';
+import 'package:investwise_new/presentation/auth/otp/otp_binding.dart';
+import 'package:investwise_new/presentation/auth/otp/otp_screen.dart';
+import 'package:investwise_new/presentation/auth/pin/pin_binding.dart';
+import 'package:investwise_new/presentation/auth/pin/pin_controller.dart';
+import 'package:investwise_new/presentation/auth/pin/pin_screen.dart';
+import 'package:investwise_new/presentation/auth/register/signup_binding.dart';
+import 'package:investwise_new/presentation/auth/register/signup_screen.dart';
 import 'package:investwise_new/presentation/home/home_binding.dart';
 import 'package:investwise_new/presentation/home/home_screen.dart';
 import 'package:investwise_new/presentation/payment/payment_binding.dart';
@@ -20,6 +27,18 @@ class AppPages {
         name: AppRoutes.login,
         page: () => const LoginScreen(),
         binding: LoginBinding()),
+    GetPage(
+        name: AppRoutes.register,
+        page: () => const SignUpScreen(),
+        binding: SignupBinding()),
+    GetPage(
+        name: AppRoutes.otp,
+        page: () => const OtpPage(),
+        binding: OtpBinding()),
+    GetPage(
+        name: AppRoutes.Pin,
+        page: () => const PinScreen(),
+        binding: PinBinding()),
     GetPage(
         name: AppRoutes.paymentConfirmation,
         page: () => PaymentScreen(),

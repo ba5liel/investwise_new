@@ -5,4 +5,5 @@ class AppRoutes {
   static const home = "/home";
   static const otp = "/otp";
   static const chapaResult = "/chapa/result";
+  static const Pin = "/Pin";
 }

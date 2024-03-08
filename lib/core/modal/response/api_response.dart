@@ -14,7 +14,7 @@ class APIResponse<T> {
     return {
       'success': success,
       'data': data,
-      'msg': msg,
+      'message': msg,
     };
   }
 
@@ -22,7 +22,8 @@ class APIResponse<T> {
     return APIResponse<T>(
       success: map['success'] ?? false,
       data: map["data"] as T,
-      msg: map['msg'] is String ? map['msg'] : map['msg'].toString(),
+      msg:
+          map['message'] is String ? map['message'] : map['message'].toString(),
     );
   }
 

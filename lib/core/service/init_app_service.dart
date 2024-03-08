@@ -20,9 +20,9 @@ Future<void> initAppService() async {
   Get.put<AppSettingService>(appSettingService);
 
   //App Auth service
-  AppAuthService appAuthService = AppAuthService();
+  AuthService appAuthService = AuthService();
   await appAuthService.init();
-  Get.put<AppAuthService>(appAuthService);
+  Get.put<AuthService>(appAuthService);
 
   //App API service
 

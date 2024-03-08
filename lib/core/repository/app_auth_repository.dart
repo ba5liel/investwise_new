@@ -1,3 +1,6 @@
+import 'dart:developer';
+import 'dart:math';
+
 import 'package:get/get.dart';
 import 'package:investwise_new/core/service/app_api_service.dart';
 import 'package:investwise_new/core/modal/response/api_response.dart';
@@ -8,7 +11,7 @@ class AppAuthRepository {
 
   Future<User> signUp(String fullName, String email, String password) async {
     APIResponse<Map<String, dynamic>> response = await _appApiService.post(
-      '/signup',
+      'users/signup',
       data: {
         'name': fullName,
         'email': email,
@@ -20,38 +23,24 @@ class AppAuthRepository {
     return User.fromMap(response.data['data']);
   }
 
-  Future<User> signWithGoogle(String token) async {
-    APIResponse<Map<String, dynamic>> response = await _appApiService.post(
-      '/oauth/google',
-      data: {
-        'token': token,
-      },
-    );
+  Future<User> signIn(String phone, String pin) async {
+    try {
+      APIResponse<Map<String, dynamic>> response = await _appApiService.post(
+        '/users/login',
+        data: {
+          'phone': phone,
+          'pin': pin,
+        },
+      );
 
-    return User.fromMap(response.data['data']);
-  }
-
-  Future<User> signWithFacebook(String token) async {
-    APIResponse<Map<String, dynamic>> response = await _appApiService.post(
-      '/oauth/facebook',
-      data: {
-        'token': token,
-      },
-    );
-
-    return User.fromMap(response.data['data']);
-  }
-
-  Future<User> signIn(String email, String password) async {
-    APIResponse<Map<String, dynamic>> response = await _appApiService.post(
-      '/login',
-      data: {
-        'username_email': email,
-        'password': password,
-      },
-    );
-
-    return User.fromMap(response.data['data']);
+      if (response.data['data'] == null) {
+        throw Exception(response.msg);
+      } else {
+        return User.fromMap(response.data['data']);
+      }
+    } catch (e) {
+      rethrow;
+    }
   }
 
   Future<String> requestOTP(String email) async {

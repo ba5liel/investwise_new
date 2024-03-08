@@ -4,7 +4,10 @@ import 'package:get/get.dart';
 import 'package:investwise_new/presentation/auth/login/login_controller.dart';
 import 'package:investwise_new/presentation/shared/app_button.dart';
 import 'package:investwise_new/presentation/shared/app_outline_button.dart';
+import 'package:investwise_new/presentation/shared/phone_input.dart';
 import 'package:investwise_new/presentation/shared/text_input.dart';
+import 'package:investwise_new/routes/app_page.dart';
+import 'package:investwise_new/routes/app_routes.dart';
 
 class LoginScreen extends GetView<LoginController> {
   const LoginScreen({super.key});
@@ -21,7 +24,7 @@ class LoginScreen extends GetView<LoginController> {
           ),
           const Center(
             child: Text(
-              "investwise_new",
+              "Investwise",
               style: TextStyle(
                 fontSize: 30,
                 fontWeight: FontWeight.bold,
@@ -34,10 +37,9 @@ class LoginScreen extends GetView<LoginController> {
           ),
           SizedBox(
               width: Get.width * 0.8,
-              child: TextInput(
-                text: 'Phone Number',
+              child: PhoneInput(
+                hint: 'Phone Number',
                 controller: controller.phoneNumber,
-                keyboardType: TextInputType.number,
                 onChanged: (value) {},
               )),
           const SizedBox(
@@ -47,31 +49,42 @@ class LoginScreen extends GetView<LoginController> {
               width: Get.width * 0.8,
               child: TextInput(
                 text: 'Pin Number',
-                controller: controller.phoneNumber,
+                controller: controller.pinNumber,
                 keyboardType: TextInputType.number,
                 onChanged: (value) {},
               )),
           const SizedBox(
-            height: 15,
+            height: 25,
           ),
           SizedBox(
             width: Get.width * 0.8,
             child: AppButton(
-              onPressed: () {},
+              onPressed: () {
+                controller.login();
+              },
               text: 'Login',
             ),
           ),
           const SizedBox(
             height: 25,
           ),
-          const Text(
-            "Don't have an account?",
-            textAlign: TextAlign.start,
+          Container(
+            alignment: Alignment.centerLeft,
+            margin: const EdgeInsets.only(left: 40),
+            child: const Text(
+              "Don't have an account?",
+              textAlign: TextAlign.start,
+            ),
+          ),
+          const SizedBox(
+            height: 15,
           ),
           SizedBox(
             width: Get.width * 0.8,
             child: AppButtonOutline(
-              onPressed: () {},
+              onPressed: () {
+                Get.toNamed(AppRoutes.register);
+              },
               text: 'Register',
             ),
           ),
