@@ -72,7 +72,7 @@ class SignUpScreen extends GetView<SignupController> {
               width: Get.width * 0.8,
               child: TextInput(
                 text: 'National ID',
-                controller: controller.firstName,
+                controller: controller.nationalId,
                 keyboardType: TextInputType.text,
                 onChanged: (value) {},
               )),
@@ -83,7 +83,7 @@ class SignUpScreen extends GetView<SignupController> {
             width: Get.width * 0.8,
             child: AppButton(
               onPressed: () {
-                Get.toNamed(AppRoutes.Pin);
+                controller.signUp();
               },
               text: 'Register',
             ),

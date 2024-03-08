@@ -17,7 +17,7 @@ class AppPaymentRepository {
       },
     );
 
-    return response.data['ref_id'];
+    return response.data?['ref_id'];
   }
 
   Future<String> sell(Company company, int amount) async {
@@ -31,6 +31,6 @@ class AppPaymentRepository {
       },
     );
 
-    return response.data['refid'];
+    return response.data?['refid'];
   }
 }
