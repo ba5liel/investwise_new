@@ -64,8 +64,6 @@ class AppAuthRepository {
       },
     );
 
-    log(response.data.toString());
-
     if (response.data == null) {
       EasyLoading.showError("Please add the valid phone number and pin");
       EasyLoading.dismiss();

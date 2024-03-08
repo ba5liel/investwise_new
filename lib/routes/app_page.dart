@@ -30,9 +30,7 @@ class AppPages {
 
   static final pageList = [
     GetPage(
-        name: AppRoutes.home,
-        page: () => const HomeScreen(),
-        binding: HomeBinding()),
+        name: AppRoutes.home, page: () => HomeScreen(), binding: HomeBinding()),
     GetPage(
         name: AppRoutes.login,
         page: () => const LoginScreen(),

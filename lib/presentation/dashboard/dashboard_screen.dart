@@ -13,7 +13,7 @@ class DashboardScreen extends StatelessWidget {
   DashboardScreen({super.key});
 
   final widgets = [
-    const HomeScreen(),
+    HomeScreen(),
     DiscoverScreen(),
     FollowStockScreen(),
     const ProfileScreen(),
