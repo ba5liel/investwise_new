@@ -67,12 +67,13 @@ class SignupController extends GetxController {
     final userData = {
       'phone': phone,
       'name': "$fName $lName",
+      'pin': '',
       'nationalId': '1234567890'
     };
     EasyLoading.dismiss();
 
     Get.toNamed(AppRoutes.Pin);
-    _storage.write('USER', userData);
+    _storage.write(StorageKeys.currentUserKey, userData);
 
     isSignUpLoading.value = true;
 
@@ -92,8 +93,17 @@ class SignupController extends GetxController {
       EasyLoading.showError("Pin number must be 4 digits");
       return;
     }
+
     final userData = _storage.read(StorageKeys.currentUserKey);
-    userData['pin'] = pin;
+    if (userData != null) {
+      userData['pin'] = pin;
+      _storage.write(StorageKeys.currentUserKey, userData);
+    } else {
+      // Handle the case where userData is null (e.g., user hasn't registered yet)
+      EasyLoading.showError("User data not found. Please register first.");
+      return;
+    }
+
     _storage.write(StorageKeys.currentUserKey, userData);
     _authRepository.signUp(
         userData['name'], userData['phone'], userData['nationalId'], pin);

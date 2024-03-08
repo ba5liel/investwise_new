@@ -33,9 +33,8 @@ class LoginController extends GetxController {
       EasyLoading.showError("Pin number is required");
       return;
     }
-    //todo validate phone and pin
 
-    final users = await _authRepository.signIn(phone, pin);
+    final users = await _authRepository.signIn(phoneValidation(phone), pin);
     if (users) {
       loginWithPhone(phoneValidation(phone));
     } else {

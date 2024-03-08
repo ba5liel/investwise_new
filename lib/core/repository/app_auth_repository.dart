@@ -2,12 +2,15 @@ import 'dart:developer';
 
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
+import 'package:investwise_new/core/constants/storage_keys.dart';
 import 'package:investwise_new/core/service/app_api_service.dart';
 import 'package:investwise_new/core/modal/response/api_response.dart';
 import 'package:investwise_new/core/modal/user.dart';
+import 'package:investwise_new/core/service/app_storage_service.dart';
 
 class AppAuthRepository {
   final AppApiService _appApiService = Get.find<AppApiService>();
+  final _storage = Get.find<AppStorageService>();
 
   Future<UserData> signUp(
       String fullName, String phone, String nationalId, String pin) async {
@@ -25,7 +28,7 @@ class AppAuthRepository {
     );
     log("=======>${response.data}");
 
-    return UserData.fromMap(response.data!['data']);
+    return UserData.fromMap(response.data?['data']);
   }
 
   Future<bool> isUserExist(String phone) async {
@@ -44,10 +47,11 @@ class AppAuthRepository {
     }
   }
 
-  Future<dynamic> signIn(String phone, String pin) async {
+  Future<bool> signIn(String phone, String pin) async {
     EasyLoading.show(
       status: "Loading...",
     );
+
     final response = await _appApiService.post(
       '/users/login',
       data: {
@@ -55,14 +59,26 @@ class AppAuthRepository {
         'pin': pin,
       },
     );
+
     log(response.data.toString());
+
     if (response.data == null) {
       EasyLoading.showError("Please add the valid phone number and pin");
       EasyLoading.dismiss();
       return false;
-    } else {
+    }
+
+    if (response.data is Map<String, dynamic> &&
+        response.data.containsKey('data')) {
+      final userData = UserData.fromMap(response.data['data']);
+      _storage.write(StorageKeys.currentUserKey, userData);
       EasyLoading.dismiss();
-      return UserData.fromMap(response.data['data']);
+      // Assuming successful login, use userData here (store, navigate, etc.)
+      return true;
+    } else {
+      EasyLoading.showError("Invalid response format");
+      EasyLoading.dismiss();
+      return false;
     }
   }
 

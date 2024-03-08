@@ -30,13 +30,11 @@ class AuthService extends GetxService {
   Future<UserData?> userData() async {
     final storedData = await _storageService.read(StorageKeys.currentUserKey);
 
-    if (storedData != null) {
-      // Proceed with processing as a Map
-      final userData = UserData.fromMap(storedData as Map<String, dynamic>);
+    if (storedData != null && storedData is Map<dynamic, dynamic>) {
+      final userData = UserData.fromMap(storedData.cast<String, dynamic>());
       return userData;
     } else {
-      // Handle the case where storedData is null
-      return null; // Or perform other actions as needed
+      return null;
     }
   }
 
