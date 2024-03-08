@@ -44,8 +44,8 @@ class Company {
 }
 
 Map<String, String> companyLogoMap = {
-  "Chapa SC.": "assets/company_logo/chapa.jpeg",
-  "Ethiopia AirLines": "assets/company_logo/chapa.jpeg",
-  "COOP Inc.": "assets/company_logo/chapa.jpeg",
-  "Ethio Telecom": "assets/company_logo/chapa.jpeg",
+  "Chapa SC.": "assets/company_logo/chapa.jpg",
+  "Ethiopia AirLines": "assets/company_logo/airlines.png",
+  "COOP Inc.": "assets/company_logo/coop.jpg",
+  "Ethio Telecom": "assets/company_logo/tele.jpg",
 };
