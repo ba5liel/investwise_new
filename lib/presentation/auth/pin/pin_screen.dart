@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:investwise_new/presentation/auth/login/login_controller.dart';
+import 'package:investwise_new/presentation/auth/register/signup_controller.dart';
 import 'package:investwise_new/presentation/shared/app_button.dart';
 import 'package:investwise_new/presentation/shared/otp_input.dart';
 
-class PinScreen extends GetView<LoginController> {
+class PinScreen extends GetView<SignupController> {
   const PinScreen({super.key});
 
   @override
@@ -47,7 +48,7 @@ class PinScreen extends GetView<LoginController> {
                   ),
                   const SizedBox(height: 50),
                   OtpInput(
-                    controller: TextEditingController(),
+                    controller: controller.pinNumber,
                     keyboardType: TextInputType.number,
                     maxLength: 4,
                     validator: (value) {
@@ -65,7 +66,9 @@ class PinScreen extends GetView<LoginController> {
               SizedBox(
                 width: isKeyboardOpen ? Get.width : Get.width * 0.8,
                 child: AppButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    controller.setPin();
+                  },
                   text: "Set Pin",
                 ),
               ),

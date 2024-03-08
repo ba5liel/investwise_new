@@ -19,7 +19,7 @@ class LoginController extends GetxController {
   final TextEditingController pinNumber = TextEditingController();
 
   //validate login with phone and pin
-  void login() {
+  Future<void> login() async {
     final phone = phoneNumber.text;
     final pin = pinNumber.text;
 
@@ -35,11 +35,13 @@ class LoginController extends GetxController {
     }
     //todo validate phone and pin
 
-    _authRepository.signIn(phone, pin).then((user) {
-      log("User: $user");
-      Get.to(const HomeScreen());
-      _loginWithPhone(phoneValidation(phone));
-    });
+    final users = await _authRepository.signIn(phone, pin);
+    if (users) {
+      loginWithPhone(phoneValidation(phone));
+    } else {
+      clearForm();
+      return;
+    }
   }
 
   // phon validation
@@ -52,7 +54,7 @@ class LoginController extends GetxController {
     return "";
   }
 
-  Future<void> _loginWithPhone(String phoneNumber,
+  Future<void> loginWithPhone(String phoneNumber,
       {int? resendToken, String? status}) async {
     EasyLoading.show(
       status: status,
@@ -72,7 +74,7 @@ class LoginController extends GetxController {
       otpController.verificationId = verificationId;
 
       otpController.onResendRequested = () {
-        _loginWithPhone(phoneNumber,
+        loginWithPhone(phoneNumber,
             resendToken: resendToken, status: "Resending");
       };
 
@@ -122,5 +124,10 @@ class LoginController extends GetxController {
       log("Error verifying OTP: $e");
       EasyLoading.showError("Invalid OTP, please try again.");
     }
+  }
+
+  void clearForm() {
+    phoneNumber.clear();
+    pinNumber.clear();
   }
 }
