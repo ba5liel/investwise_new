@@ -17,7 +17,7 @@ class ProfileScreen extends GetView<ProfileController> {
         ),
       ),
       Text(
-        Get.find<AppAuthService>().user?.name ?? "Test",
+        Get.find<AuthService>().cu?.name ?? "Test",
         textAlign: TextAlign.left,
         style: TextStyle(
             fontFamily: "PTSans", fontSize: 18, fontWeight: FontWeight.bold),
