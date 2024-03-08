@@ -1,9 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:investwise_new/core/constants/storage_keys.dart';
 import 'package:investwise_new/core/modal/setting/app_config.dart';
 import 'package:investwise_new/core/modal/user.dart';
 import 'package:investwise_new/core/service/app_storage_service.dart';
+import 'package:investwise_new/routes/app_routes.dart';
 
 class AuthService extends GetxService {
   final _storageService = Get.find<AppStorageService>();
@@ -24,8 +26,12 @@ class AuthService extends GetxService {
   bool isLoggedIn() => rememberThisDevice;
 
   Future<void> logout() async {
+    EasyLoading.show(status: "Logging out...");
+
     await firebaseAuthInstance.signOut();
     await _storageService.clear();
+    Get.toNamed(AppRoutes.login);
+    EasyLoading.dismiss();
   }
 
   Future<UserData?> userData() async {
