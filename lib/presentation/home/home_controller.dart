@@ -36,13 +36,12 @@ class HomeController extends GetxController {
       final response = await getMyStocks();
 
       if (!response.isEmpty) {
-        mylist.assignAll(response);
-        companies.assignAll(responseCompanies);
-      } else {
-        EasyLoading.showError("Something Went Wrong");
+        mylist.addAll(response);
       }
+      companies.addAll(responseCompanies);
     }
 
     isLoading.value = false;
+    EasyLoading.dismiss();
   }
 }
