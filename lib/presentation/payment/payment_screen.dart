@@ -1,3 +1,4 @@
+import 'package:chapasdk/chapa_payment initializer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -113,7 +114,22 @@ class PaymentScreen extends StatelessWidget {
             const Spacer(),
             ElevatedButton(
               onPressed: () {
+                print("button presssed");
                 // Add your onPressed code here!
+                Chapa.paymentParameters(
+                  context: context, // context
+                  publicKey: 'CHAPUBK_TEST-mRl4lOoKqWGyDTVLF91g1fMGUkggdyL4',
+                  currency: 'etb',
+                  amount: '300',
+                  email: 'xyz@gmail.com',
+                  phone: '911223344',
+                  firstName: 'testname',
+                  lastName: 'lastName',
+                  txRef: '55ttyyy',
+                  title: 'title',
+                  desc: 'desc',
+                  namedRouteFallBack: '/checkoutPage', // fall back route name
+                );
               },
               child: const Text('Buy Now'),
               style: ElevatedButton.styleFrom(

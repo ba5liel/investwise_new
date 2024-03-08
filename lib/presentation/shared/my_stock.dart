@@ -6,7 +6,7 @@ Widget MyStock(String logo) {
       padding: const EdgeInsets.all(10),
       margin: const EdgeInsets.only(bottom: 8),
       decoration: BoxDecoration(
-          color: AppColors.backgroundColor2,
+          // color: AppColors.backgroundColor2,
           borderRadius: BorderRadius.circular(8)),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -36,7 +36,10 @@ Widget MyStock(String logo) {
                   Text(
                     "Coop Bank",
                     textAlign: TextAlign.left,
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                        fontSize: 16,
+                        fontFamily: "PTSans",
+                        fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(
                     height: 4,
@@ -45,7 +48,10 @@ Widget MyStock(String logo) {
                     child: Text(
                       "COOP",
                       textAlign: TextAlign.left,
-                      style: TextStyle(fontSize: 14),
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontFamily: "PTSans",
+                      ),
                     ),
                   ),
                 ],
@@ -58,7 +64,10 @@ Widget MyStock(String logo) {
               Text(
                 "190.99 Br.",
                 textAlign: TextAlign.left,
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                    fontSize: 16,
+                    fontFamily: "PTSans",
+                    fontWeight: FontWeight.bold),
               ),
               const SizedBox(
                 height: 4,
@@ -67,7 +76,10 @@ Widget MyStock(String logo) {
                 child: Text(
                   "+25%",
                   textAlign: TextAlign.left,
-                  style: TextStyle(fontSize: 14, color: AppColors.greenColor),
+                  style: TextStyle(
+                      fontSize: 14,
+                      fontFamily: "PTSans",
+                      color: AppColors.greenColor),
                 ),
               ),
             ],

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:investwise_new/core/constants/theme/app_color.dart';
 
 class TextInput extends StatefulWidget {
   final String text;
@@ -23,11 +24,14 @@ class _TextInputState extends State<TextInput> {
     return TextField(
         controller: widget.controller,
         keyboardType: widget.keyboardType,
+        style: TextStyle(
+            fontSize: 30, fontFamily: "PTSans", fontWeight: FontWeight.bold),
         decoration: InputDecoration(
-          border: const OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(20)),
-          ),
-          labelText: widget.text,
-        ));
+            border: const OutlineInputBorder(
+              borderSide: BorderSide(color: AppColors.greenColor, width: 2.0),
+              borderRadius: BorderRadius.all(Radius.circular(20)),
+            ),
+            labelText: widget.text,
+            contentPadding: const EdgeInsets.all(40)));
   }
 }
