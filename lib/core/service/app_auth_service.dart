@@ -12,9 +12,8 @@ class AuthService extends GetxService {
   String? token;
   bool rememberThisDevice = false;
   Future<AuthService> init() async {
-    UserData user = await userData();
-
-    if (user.name != null) {
+    UserData? user = await userData();
+    if (user != null) {
       rememberThisDevice = true;
     }
 
@@ -28,9 +27,17 @@ class AuthService extends GetxService {
     await _storageService.clear();
   }
 
-  Future<UserData> userData() async {
-    return UserData.fromMap(
-        await _storageService.read(StorageKeys.currentUserKey));
+  Future<UserData?> userData() async {
+    final storedData = await _storageService.read(StorageKeys.currentUserKey);
+
+    if (storedData != null) {
+      // Proceed with processing as a Map
+      final userData = UserData.fromMap(storedData as Map<String, dynamic>);
+      return userData;
+    } else {
+      // Handle the case where storedData is null
+      return null; // Or perform other actions as needed
+    }
   }
 
   Future<void> signInWithPhone(

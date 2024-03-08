@@ -32,13 +32,16 @@ class MainPage extends StatelessWidget {
       builder: (context, _) => GetMaterialApp(
         title: 'Invest wise',
         debugShowCheckedModeBanner: false,
-        initialRoute: Get.put(AuthService()).isLoggedIn()
-            ? AppRoutes.home
-            : AppRoutes.login,
+        initialRoute: _getInitialRoute(),
         getPages: AppPages.pages,
         theme: AppTheme.appTheme,
         builder: EasyLoading.init(),
       ),
     );
+  }
+
+  String _getInitialRoute() {
+    final userStatusChecker = Get.put(AuthService());
+    return userStatusChecker.isLoggedIn() ? AppRoutes.home : AppRoutes.login;
   }
 }
