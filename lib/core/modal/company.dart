@@ -34,7 +34,7 @@ class Company {
         totalShares: map['totalShares']?.toInt() ?? 0,
         avlShares: map['avlShares']?.toInt() ?? 0,
         pricePerShare: map['pricePerShare']?.toInt() ?? 0,
-        image: "assets/company_logo/airlines.png");
+        image: companyLogoMap[map['name']]!);
   }
 
   String toJson() => json.encode(toMap());
@@ -42,3 +42,10 @@ class Company {
   factory Company.fromJson(String source) =>
       Company.fromMap(json.decode(source));
 }
+
+Map<String, String> companyLogoMap = {
+  "Chapa SC.": "assets/company_logo/chapa.jpeg",
+  "Ethiopia AirLines": "assets/company_logo/chapa.jpeg",
+  "COOP Inc.": "assets/company_logo/chapa.jpeg",
+  "Ethio Telecom": "assets/company_logo/chapa.jpeg",
+};

@@ -89,47 +89,54 @@ class FollowerRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return Column(
       children: [
         Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            CompanyLogoWidget(image: image),
-            const SizedBox(width: 15),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
+            Row(
               children: [
-                Text(
-                  name,
-                  style: AppTextTheme.PR_SANSSubTitleStyle,
-                ),
-                SizedBox(height: 8.h),
-                Text(description)
+                CompanyLogoWidget(image: image),
+                const SizedBox(width: 15),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      name,
+                      style: AppTextTheme.PR_SANSSubTitleStyle,
+                    ),
+                    SizedBox(height: 8.h),
+                    Text(description)
+                  ],
+                )
               ],
-            )
+            ),
+            InkWell(
+              onTap: () {
+                // Get.toNamed(AppRoutes.buyStock);
+              },
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
+                decoration: BoxDecoration(
+                    color: AppColors.greenColor,
+                    borderRadius: BorderRadius.circular(50)),
+                child: Text(
+                  "Follow",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      fontFamily: "PTSans",
+                      fontSize: 13.sp,
+                      color: AppColors.appBgColor,
+                      height: 1.8),
+                ),
+              ),
+            ),
           ],
         ),
-        InkWell(
-          onTap: () {
-            // Get.toNamed(AppRoutes.buyStock);
-          },
-          child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 5.h),
-            decoration: BoxDecoration(
-                color: AppColors.greenColor,
-                borderRadius: BorderRadius.circular(50)),
-            child: Text(
-              "Follow",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  fontFamily: "PTSans",
-                  fontSize: 13.sp,
-                  color: AppColors.appBgColor,
-                  height: 1.8),
-            ),
-          ),
-        ),
+        const SizedBox(height: 8.0),
+        const Divider(thickness: .1),
+        const SizedBox(height: 8.0),
       ],
     );
   }
