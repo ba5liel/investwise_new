@@ -22,7 +22,7 @@ class AppFormatter {
 
   static String formatCurrency(double price) {
     final format =
-        NumberFormat.currency(locale: "en_US", symbol: "\$", decimalDigits: 2);
+        NumberFormat.currency(locale: "en_ET", symbol: "ETB", decimalDigits: 2);
     return format.format(price);
   }
 }

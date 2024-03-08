@@ -84,7 +84,7 @@ class SignupController extends GetxController {
     isSignUpLoading.value = false;
   }
 
-  void setPin() {
+  void setPin() async {
     EasyLoading.show(
       status: "Loading...",
     );
@@ -110,6 +110,8 @@ class SignupController extends GetxController {
 
     _storage.write(StorageKeys.currentUserKey, userData);
     EasyLoading.dismiss();
+    await _authRepository.signUp(
+        userData["name"], userData["phone"], "naitmal id", pin);
     _logController.loginWithPhone(userData['phone']);
   }
 

@@ -8,6 +8,8 @@ import 'package:investwise_new/core/constants/theme/app_color.dart';
 import 'package:investwise_new/core/modal/company.dart';
 import 'package:investwise_new/core/service/app_auth_service.dart';
 import 'package:investwise_new/core/utils/formatter.dart';
+import 'package:investwise_new/presentation/home/home_controller.dart';
+import 'package:investwise_new/presentation/payment/payment_controller.dart';
 import 'package:investwise_new/presentation/shared/app_button.dart';
 import 'package:investwise_new/presentation/shared/widget/company_logo.dart';
 import 'package:investwise_new/routes/app_routes.dart';
@@ -40,6 +42,10 @@ class _PaymentSuccessState extends State<PaymentSuccess> {
             print(args);
             company = _authService.refCompanyMap[args['transactionReference']]!;
             amount = _authService.refAmountMap[args['transactionReference']]!;
+
+            PaymentController()
+                .settlePayment(args['transactionReference'])
+                .then((value) => Get.find<HomeController>().getMyStocks());
           }
         }
       });

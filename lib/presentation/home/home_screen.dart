@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:investwise_new/core/constants/theme/app_color.dart';
+import 'package:investwise_new/core/utils/formatter.dart';
 import 'package:investwise_new/presentation/home/home_controller.dart';
 import 'package:investwise_new/presentation/shared/my_stock.dart';
 import 'package:investwise_new/presentation/shared/top_compay.dart';
@@ -81,9 +82,10 @@ class HomeScreen extends StatelessWidget {
                       const SizedBox(
                         height: 30,
                       ),
-                      const Text(
-                        "2,900,000 Br.",
-                        style: TextStyle(
+                      Text(
+                        AppFormatter.formatCurrency(
+                            _homeController.totalAmount.value),
+                        style: const TextStyle(
                             fontSize: 40,
                             fontFamily: "PTSans",
                             color: AppColors.whiteColor,

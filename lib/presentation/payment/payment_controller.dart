@@ -33,6 +33,18 @@ class PaymentController extends GetxController {
     }
   }
 
+  Future<void> settlePayment(String refid) async {
+    try {
+      EasyLoading.show(
+        status: "Making payment...",
+      );
+      await _appPaymentRepository.settle(refid);
+      EasyLoading.dismiss();
+    } catch (e) {
+      EasyLoading.show(status: e.toString());
+    }
+  }
+
   bool checkPin(String currentPin) {
     return currentPin == _authService.currentUser?.pin;
   }

@@ -22,6 +22,15 @@ class AppPaymentRepository {
     return response.data?['ref_id'];
   }
 
+  Future<void> settle(String refid) async {
+    APIResponse<Map<String, dynamic>> response = await _appApiService.post(
+      'share-session/success',
+      data: {
+        "ref_id": refid,
+      },
+    );
+  }
+
   Future<String> sell(Company company, int amount) async {
     APIResponse<Map<String, dynamic>> response = await _appApiService.post(
       'share-session',

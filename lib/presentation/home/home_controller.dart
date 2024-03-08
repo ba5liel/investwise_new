@@ -8,7 +8,7 @@ import 'package:investwise_new/core/repository/app_share_repository.dart';
 class HomeController extends GetxController {
   var isLoading = false.obs;
   final _companyRepository = Get.put(AppCompanyRepository());
-
+  var totalAmount = 0.0.obs;
   RxList<Company> companies = <Company>[].obs;
   final _appShareRepository = Get.put(AppShareRepository());
   RxList<StockShare> mylist = <StockShare>[].obs;
@@ -20,7 +20,12 @@ class HomeController extends GetxController {
   }
 
   Future<List<StockShare>> getMyStocks() async {
-    return await _appShareRepository.getUSerShares();
+    var list = await _appShareRepository.getUSerShares();
+    for (var element in list) {
+      totalAmount.value +=
+          (element.sharesOwned * element.company.pricePerShare);
+    }
+    return list;
   }
 
   Future<void> getCompanies() async {
