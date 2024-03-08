@@ -11,15 +11,14 @@ import 'package:investwise_new/presentation/profile/profile_screen.dart';
 class DashboardScreen extends StatelessWidget {
   DashboardScreen({super.key});
 
-  final widgets = [HomeScreen(), DiscoverScreen(), ProfileScreen()];
+  final widgets = [HomeScreen(), DiscoverScreen(), const ProfileScreen()];
 
   final DashboardController dashboardController =
       Get.find<DashboardController>();
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-        child: Scaffold(
+    return Scaffold(
       backgroundColor: AppColors.blackColor,
       bottomNavigationBar: Obx(
         () => BottomNavigationBar(
@@ -39,13 +38,13 @@ class DashboardScreen extends StatelessWidget {
           ),
           selectedFontSize: 12,
           unselectedFontSize: 12,
-          selectedIconTheme: IconThemeData(color: AppColors.greenColor),
+          selectedIconTheme: const IconThemeData(color: AppColors.greenColor),
           type: BottomNavigationBarType.fixed,
           currentIndex: dashboardController.currentNav.value,
           onTap: (value) {
             dashboardController.changeNav(value);
           },
-          items: [
+          items: const [
             BottomNavigationBarItem(
               icon: FaIcon(
                 FontAwesomeIcons.houseChimney,
@@ -74,7 +73,9 @@ class DashboardScreen extends StatelessWidget {
           ],
         ),
       ),
-      body: Obx(() => widgets[dashboardController.currentNav.value]),
-    ));
+      body: Container(
+          margin: const EdgeInsets.only(top: 10),
+          child: Obx(() => widgets[dashboardController.currentNav.value])),
+    );
   }
 }

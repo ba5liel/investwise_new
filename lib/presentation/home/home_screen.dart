@@ -164,15 +164,17 @@ class HomeScreen extends StatelessWidget {
                     height: 10,
                   ),
                   Expanded(
-                    child: ListView(
-                      scrollDirection: Axis.vertical,
-                      children: [
-                        MyStock("assets/coop.png"),
-                        MyStock("assets/coop.png"),
-                        MyStock("assets/coop.png"),
-                        MyStock("assets/coop.png"),
-                        MyStock("assets/coop.png"),
-                      ],
+                    child: Obx(
+                      () => _homeController.mylist.isNotEmpty
+                          ? ListView.builder(
+                              itemCount: _homeController.mylist.length,
+                              itemBuilder: ((context, index) {
+                                return MyStock(_homeController
+                                    .mylist[index].company.image);
+                              }),
+                              scrollDirection: Axis.vertical,
+                            )
+                          : Container(),
                     ),
                   ),
                 ],

@@ -12,8 +12,7 @@ class ProfileScreen extends GetView<ProfileController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Container(
-      alignment: Alignment.center,
+        body: SafeArea(
       child: Column(children: [
         const SizedBox(
           height: 20,

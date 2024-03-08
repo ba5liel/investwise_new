@@ -69,7 +69,9 @@ class OtpPage extends GetView<OTPController> {
                       ),
                       const SizedBox(height: 10),
                       GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          controller.resendOTPCode();
+                        },
                         child: const Text(
                           "Click to resend",
                           style: TextStyle(
