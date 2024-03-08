@@ -19,7 +19,8 @@ class AppAuthRepository {
     EasyLoading.show(
       status: "Loading...",
     );
-    APIResponse<Map<String, dynamic>> response = await _appApiService.post(
+    log("log 3");
+    final response = await _appApiService.post(
       'users/signup',
       data: {
         'name': fullName,
@@ -28,9 +29,10 @@ class AppAuthRepository {
         "nationalId": nationalId
       },
     );
+    log("log 4");
     log("=======>${response.data}");
 
-    return UserData.fromMap(response.data?['data']);
+    return UserData.fromMap(response.data!);
   }
 
   Future<bool> isUserExist(String phone) async {
@@ -68,20 +70,14 @@ class AppAuthRepository {
       EasyLoading.showError("Please add the valid phone number and pin");
       EasyLoading.dismiss();
       return false;
-    }
-
-    if (response.data is Map<String, dynamic> &&
-        response.data.containsKey('data')) {
-      final userData = UserData.fromMap(response.data['data']);
+    } else {
+      final userData = UserData.fromMap(response.data!);
       _storage.write(StorageKeys.currentUserKey, userData);
       _authService.currentUser = userData;
       EasyLoading.dismiss();
+
       // Assuming successful login, use userData here (store, navigate, etc.)
       return true;
-    } else {
-      EasyLoading.showError("Invalid response format");
-      EasyLoading.dismiss();
-      return false;
     }
   }
 

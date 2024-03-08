@@ -109,10 +109,7 @@ class SignupController extends GetxController {
     }
 
     _storage.write(StorageKeys.currentUserKey, userData);
-    _authService.currentUser = UserData.fromMap(userData);
-    _authRepository.signUp(
-        userData['name'], userData['phone'], userData['nationalId'], pin);
-
+    EasyLoading.dismiss();
     _logController.loginWithPhone(userData['phone']);
   }
 
