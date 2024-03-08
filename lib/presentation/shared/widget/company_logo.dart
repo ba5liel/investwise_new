@@ -13,7 +13,7 @@ class CompanyLogoWidget extends StatelessWidget {
       height: size,
       decoration: BoxDecoration(
           border: Border.all(color: Colors.black, width: .1),
-          image: DecorationImage(image: AssetImage(image)),
+          image: DecorationImage(image: AssetImage(image), fit: BoxFit.cover),
           borderRadius: BorderRadius.circular(50)),
     );
   }

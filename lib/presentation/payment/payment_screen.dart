@@ -1,6 +1,5 @@
 import 'dart:math';
 
-import 'package:chapasdk/chapa_payment initializer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -11,11 +10,9 @@ import 'package:investwise_new/core/utils/formatter.dart';
 import 'package:investwise_new/core/utils/generic_dialog.dart';
 import 'package:investwise_new/presentation/payment/payment_controller.dart';
 import 'package:investwise_new/presentation/shared/app_button.dart';
-import 'package:investwise_new/presentation/shared/otp_input.dart';
 import 'package:investwise_new/presentation/shared/widget/company_logo.dart';
-import 'package:investwise_new/routes/app_routes.dart';
 
-class PaymentScreen extends GetView<PaymentController> {
+class PaymentScreen extends StatelessWidget {
   PaymentScreen(
       {super.key,
       required this.sell,
@@ -138,7 +135,7 @@ class PaymentScreen extends GetView<PaymentController> {
             AppButton(
                 text: 'Pay with chapa 🍑',
                 onPressed: () {
-                  controller.payWithChapa(company, amount);
+                  PaymentController().payWithChapa(company, amount);
                 }),
           ],
         ),

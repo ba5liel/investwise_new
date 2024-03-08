@@ -103,12 +103,10 @@ class LoginController extends GetxController {
     var userCredential = await _authService.firebaseAuthInstance
         .signInWithCredential(credential);
     EasyLoading.dismiss();
-    final userData = _storage.read(StorageKeys.currentUserKey);
-    _authRepository.signUp(userData['name'], userData['phone'],
-        userData['nationalId'], userData['pin']);
-    _authService.currentUser = UserData.fromMap(userData);
+
     userCredential.user?.getIdToken().then((value) {
       if (value != null) {
+        EasyLoading.dismiss();
         Get.toNamed(AppRoutes.dashboard);
       }
     });

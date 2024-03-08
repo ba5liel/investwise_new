@@ -91,61 +91,59 @@ class SellStockScreen extends StatelessWidget {
                   width: Get.width,
                   padding: const EdgeInsets.all(20),
                   color: AppColors.appBgColor,
-                  child: Expanded(
-                    child: Column(
-                      children: [
-                        MyStock("assets/coop.png"),
-                        const SizedBox(
-                          height: 10,
+                  child: Column(
+                    children: [
+                      MyStock("assets/coop.png"),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      BigInput(
+                        controller: _textEditingController,
+                        onChanged: (val) {},
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      const Text(
+                        "Available Balance in Stock/Equity 432,000 Br.",
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontFamily: "PTSans",
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.greenColor,
                         ),
-                        BigInput(
-                          controller: _textEditingController,
-                          onChanged: (val) {},
-                        ),
-                        const SizedBox(
-                          height: 16,
-                        ),
-                        const Text(
-                          "Available Balance in Stock/Equity 432,000 Br.",
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontFamily: "PTSans",
-                            fontWeight: FontWeight.bold,
-                            color: AppColors.greenColor,
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 16,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Expanded(
-                              child: InkWell(
-                                onTap: () {
-                                  Get.toNamed(AppRoutes.previewStock);
-                                },
-                                child: Container(
-                                  padding: const EdgeInsets.all(16),
-                                  decoration: BoxDecoration(
-                                      color: AppColors.greenColor,
-                                      borderRadius: BorderRadius.circular(50)),
-                                  child: const Text(
-                                    "Sell",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        fontFamily: "PTSans",
-                                        fontSize: 16,
-                                        color: AppColors.appBgColor,
-                                        height: 1.8),
-                                  ),
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Expanded(
+                            child: InkWell(
+                              onTap: () {
+                                Get.toNamed(AppRoutes.previewStock);
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.all(16),
+                                decoration: BoxDecoration(
+                                    color: AppColors.greenColor,
+                                    borderRadius: BorderRadius.circular(50)),
+                                child: const Text(
+                                  "Sell",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontFamily: "PTSans",
+                                      fontSize: 16,
+                                      color: AppColors.appBgColor,
+                                      height: 1.8),
                                 ),
                               ),
-                            )
-                          ],
-                        )
-                      ],
-                    ),
+                            ),
+                          )
+                        ],
+                      )
+                    ],
                   ),
                 ),
               )

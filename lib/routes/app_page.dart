@@ -13,7 +13,6 @@ import 'package:investwise_new/presentation/discover/discover_screen.dart';
 import 'package:investwise_new/presentation/auth/otp/otp_binding.dart';
 import 'package:investwise_new/presentation/auth/otp/otp_screen.dart';
 import 'package:investwise_new/presentation/auth/pin/pin_binding.dart';
-import 'package:investwise_new/presentation/auth/pin/pin_controller.dart';
 import 'package:investwise_new/presentation/auth/pin/pin_screen.dart';
 import 'package:investwise_new/presentation/auth/register/signup_binding.dart';
 import 'package:investwise_new/presentation/auth/register/signup_screen.dart';
@@ -64,7 +63,11 @@ class AppPages {
         binding: PaymentBinding()),
     GetPage(
         name: AppRoutes.chapaResult,
-        page: () => PaymentSuccess(),
+        page: () => PaymentSuccess(sell: false),
+        binding: PaymentBinding()),
+    GetPage(
+        name: AppRoutes.chapaResultSell,
+        page: () => PaymentSuccess(sell: true),
         binding: PaymentBinding()),
     GetPage(
         name: AppRoutes.companyDetail,

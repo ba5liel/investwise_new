@@ -144,7 +144,7 @@ class CompanyDetailScreen extends StatelessWidget {
                   width: Get.width,
                   padding: const EdgeInsets.all(20),
                   color: AppColors.appBgColor,
-                  child: Expanded(
+                  child: SingleChildScrollView(
                     child: Column(
                       children: [
                         Container(
