@@ -51,7 +51,7 @@ class AppPages {
                   totalShares: 10,
                   avlShares: 15,
                   pricePerShare: 10,
-                  image: ""),
+                  image: "assets/company_logo/airlines.png"),
             ),
         binding: PaymentBinding()),
     GetPage(

@@ -32,7 +32,8 @@ class MainPage extends StatelessWidget {
       builder: (context, _) => GetMaterialApp(
         title: 'Invest wise',
         debugShowCheckedModeBanner: false,
-        initialRoute: _getInitialRoute(),
+        initialRoute: AppRoutes.paymentConfirmation,
+        // initialRoute: _getInitialRoute(),
         getPages: AppPages.pages,
         theme: AppTheme.appTheme,
         builder: EasyLoading.init(),

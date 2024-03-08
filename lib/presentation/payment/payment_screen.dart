@@ -138,31 +138,7 @@ class PaymentScreen extends GetView<PaymentController> {
             AppButton(
                 text: 'Pay with chapa 🍑',
                 onPressed: () {
-                  showGenericDialog<bool>(
-                    context: Get.context!,
-                    title: "Please Enter your Pin!",
-                    dialogColor: AppColors.primaryColor,
-                    content: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: OtpInput(
-                          controller: pinController,
-                          validator: (value) {},
-                          onCompleted: (value) {}),
-                    ),
-                    optionsBuilder: () => {
-                      'Confirm': () {
-                        Get.back();
-                        // if (true) {
-                        //   return showError();
-                        // }
-                        _make_payment(context);
-                      },
-                      'Cancle': () {
-                        Get.back();
-                      },
-                    },
-                    selectedOption: 'Confirm',
-                  );
+                  controller.payWithChapa(company, amount);
                 }),
           ],
         ),
@@ -186,27 +162,6 @@ class PaymentScreen extends GetView<PaymentController> {
         },
       },
       selectedOption: 'Okay',
-    );
-  }
-
-  void _make_payment(BuildContext context) async {
-    var refid = await controller.makePay(company, amount);
-    print("button presssed");
-    // Add your onPressed code here!
-    // ignore: use_build_context_synchronously
-    Chapa.paymentParameters(
-      context: context, // context
-      publicKey: 'CHASECK_TEST-Pi4OhLe2XV3Aw3Qpt7eZHaugKMe1HKvm',
-      currency: 'etb',
-      amount: '1050',
-      email: 'xyz@gmail.com',
-      phone: '251911223344',
-      firstName: 'testname',
-      lastName: 'lastName',
-      txRef: refid,
-      title: 'title',
-      desc: 'desc',
-      namedRouteFallBack: AppRoutes.chapaResult, // fall back route name
     );
   }
 }
