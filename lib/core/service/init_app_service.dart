@@ -4,6 +4,7 @@ import 'package:investwise_new/core/service/app_api_service.dart';
 import 'package:investwise_new/core/service/app_auth_service.dart';
 import 'package:investwise_new/core/service/app_setting_service.dart';
 import 'package:investwise_new/core/service/app_storage_service.dart';
+import 'package:investwise_new/presentation/home/home_controller.dart';
 import 'package:investwise_new/presentation/payment/payment_controller.dart';
 
 Future<void> initAppService() async {
@@ -34,6 +35,7 @@ Future<void> initAppService() async {
   Get.put<AppPaymentRepository>(AppPaymentRepository());
 
   Get.put(() => PaymentController());
+  Get.put(() => HomeController(), permanent: true);
 
   // Get.put(AppPropertyService());
 }

@@ -132,7 +132,7 @@ class _PaymentSuccessState extends State<PaymentSuccess> {
                       AppButton(
                         text: "View my portfolio",
                         onPressed: () {
-                          Get.toNamed(AppRoutes.home);
+                          Get.toNamed(AppRoutes.dashboard);
                         },
                       )
                     ],
