@@ -8,13 +8,14 @@ import 'package:investwise_new/core/service/app_storage_service.dart';
 class AuthService extends GetxService {
   final _storageService = Get.find<AppStorageService>();
   final firebaseAuthInstance = FirebaseAuth.instance;
-
+  UserData? currentUser;
   String? token;
   bool rememberThisDevice = false;
   Future<AuthService> init() async {
     UserData? user = await userData();
     if (user != null) {
       rememberThisDevice = true;
+      currentUser = user;
     }
 
     return this;
