@@ -5,6 +5,10 @@ import 'package:investwise_new/presentation/buystock/buystock_binding.dart';
 import 'package:investwise_new/presentation/buystock/buystock_screen.dart';
 import 'package:investwise_new/presentation/companydetail/company_detail_binding.dart';
 import 'package:investwise_new/presentation/companydetail/company_detail_screen.dart';
+import 'package:investwise_new/presentation/dashboard/dashboard_binding.dart';
+import 'package:investwise_new/presentation/dashboard/dashboard_screen.dart';
+import 'package:investwise_new/presentation/discover/discover_binding.dart';
+import 'package:investwise_new/presentation/discover/discover_screen.dart';
 import 'package:investwise_new/presentation/home/home_binding.dart';
 import 'package:investwise_new/presentation/home/home_screen.dart';
 import 'package:investwise_new/presentation/payment/payment_binding.dart';
@@ -40,6 +44,14 @@ class AppPages {
     GetPage(
         name: AppRoutes.previewStock,
         page: () => PreviewStockScreen(),
-        binding: PreviewStockBinding())
+        binding: PreviewStockBinding()),
+    GetPage(
+        name: AppRoutes.discover,
+        page: () => DiscoverScreen(),
+        binding: DiscoverBinding()),
+    GetPage(
+        name: AppRoutes.dashboard,
+        page: () => DashboardScreen(),
+        binding: DashboardBinding())
   ];
 }

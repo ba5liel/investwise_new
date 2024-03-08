@@ -8,12 +8,15 @@ import 'package:investwise_new/core/constants/theme/app_color.dart';
 import 'package:investwise_new/presentation/shared/my_stock.dart';
 import 'package:investwise_new/presentation/shared/top_compay.dart';
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+class DiscoverScreen extends StatelessWidget {
+  DiscoverScreen({super.key});
+
+  final TextEditingController _textEditingController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      color: AppColors.blackColor,
       child: Column(
         children: [
           Stack(
@@ -48,7 +51,7 @@ class HomeScreen extends StatelessWidget {
                             children: [
                               Container(
                                 child: FaIcon(
-                                  FontAwesomeIcons.chartColumn,
+                                  FontAwesomeIcons.compass,
                                   color: AppColors.whiteColor,
                                 ),
                               ),
@@ -56,7 +59,7 @@ class HomeScreen extends StatelessWidget {
                                 width: 10,
                               ),
                               Text(
-                                "InvestWise",
+                                "Discover",
                                 style: TextStyle(
                                   fontSize: 16,
                                   fontFamily: "PTSans",
@@ -79,30 +82,24 @@ class HomeScreen extends StatelessWidget {
                         ],
                       ),
                       const SizedBox(
-                        height: 30,
+                        height: 16,
                       ),
-                      Text(
-                        "2,900,000 Br.",
-                        style: TextStyle(
-                            fontSize: 40,
-                            fontFamily: "PTSans",
-                            color: AppColors.whiteColor,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Text(
-                        "Total Stock Balance",
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontFamily: "PTSans",
-                          color: AppColors.whiteColor,
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
+                      TextField(
+                          controller: _textEditingController,
+                          style: TextStyle(
+                              fontSize: 16,
+                              fontFamily: "PTSans",
+                              color: AppColors.whiteColor,
+                              fontWeight: FontWeight.bold),
+                          decoration: InputDecoration(
+                              border: const OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: AppColors.greenColor, width: 2.0),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(16)),
+                              ),
+                              labelText: "Search here",
+                              contentPadding: const EdgeInsets.all(16)))
                     ],
                   ),
                 ),
@@ -116,35 +113,13 @@ class HomeScreen extends StatelessWidget {
               padding: const EdgeInsets.all(20),
               child: Column(
                 children: [
-                  Container(
-                    width: Get.width,
-                    child: Text(
-                      "Top Companies",
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                          fontFamily: "PTSans",
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Container(
-                    height: 140,
-                    width: Get.width,
-                    child: ListView(
-                      scrollDirection: Axis.horizontal,
-                      children: [TopCompany(), TopCompany(), TopCompany()],
-                    ),
-                  ),
                   const SizedBox(
                     height: 10,
                   ),
                   Container(
                     width: Get.width,
                     child: Text(
-                      "My Stocks",
+                      "All Companies",
                       textAlign: TextAlign.left,
                       style: TextStyle(
                           fontFamily: "PTSans",
