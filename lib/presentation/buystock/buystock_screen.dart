@@ -131,7 +131,8 @@ class BuyStockScreen extends StatelessWidget {
                                 // Get.toNamed(AppRoutes.paymentConfirmation);
                                 Get.to(PaymentScreen(
                                     sell: false,
-                                    amount: 1050,
+                                    amount: double.parse(
+                                        _textEditingController.text),
                                     company: Company(
                                         id: 1,
                                         name: "Airlines",

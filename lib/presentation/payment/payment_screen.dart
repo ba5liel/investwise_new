@@ -133,7 +133,7 @@ class PaymentScreen extends StatelessWidget {
             ),
             const Spacer(),
             AppButton(
-                text: 'Pay with chapa 🍑',
+                text: 'Pay with chapa',
                 onPressed: () {
                   PaymentController().payWithChapa(company, amount);
                 }),

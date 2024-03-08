@@ -72,7 +72,7 @@ class AppAuthRepository {
       return false;
     } else {
       final userData = UserData.fromMap(response.data!);
-      _storage.write(StorageKeys.currentUserKey, userData);
+      _storage.write(StorageKeys.currentUserKey, response.data!);
       _authService.currentUser = userData;
       EasyLoading.dismiss();
 

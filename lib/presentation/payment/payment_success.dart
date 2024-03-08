@@ -26,8 +26,8 @@ class _PaymentSuccessState extends State<PaymentSuccess> {
   final AuthService _authService = Get.find<AuthService>();
 
   var args;
-  late Company company;
-  late double amount;
+  Company? company;
+  double? amount;
   @override
   void initState() {
     Future.delayed(Duration.zero, () {
@@ -38,8 +38,8 @@ class _PaymentSuccessState extends State<PaymentSuccess> {
             print('message after payment');
             print(args['message']);
             print(args);
-            company = _authService.refCompanyMap[args['ref']]!;
-            amount = _authService.refAmountMap[args['ref']]!;
+            company = _authService.refCompanyMap[args['transactionReference']]!;
+            amount = _authService.refAmountMap[args['transactionReference']]!;
           }
         }
       });
@@ -58,7 +58,10 @@ class _PaymentSuccessState extends State<PaymentSuccess> {
             padding: EdgeInsets.symmetric(vertical: 150.h, horizontal: 30.w),
             child: Column(children: [
               SizedBox(width: 150.h),
-              CompanyLogoWidget(size: 170, image: company.image),
+              CompanyLogoWidget(
+                  size: 170,
+                  image:
+                      company?.image ?? "assets/company_logo/placeholder.jpeg"),
               Stack(children: <Widget>[
                 Align(
                   alignment: Alignment.center,
@@ -90,7 +93,9 @@ class _PaymentSuccessState extends State<PaymentSuccess> {
                             _controllerCenter.play();
                           },
                           child: Text(
-                            AppFormatter.formatCurrency(amount),
+                            amount == null
+                                ? "--"
+                                : AppFormatter.formatCurrency(amount!),
                             style: TextStyle(
                                 color: AppColors.greenColor,
                                 fontSize: 45.sp,
@@ -100,7 +105,7 @@ class _PaymentSuccessState extends State<PaymentSuccess> {
                         height: 50.h,
                       ),
                       Text(
-                        "Buy Order Recieved",
+                        "${widget.sell ? 'Sell' : 'Buy'} Order Recieved",
                         style: TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.w600,
