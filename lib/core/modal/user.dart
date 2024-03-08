@@ -4,7 +4,7 @@ class UserData {
   final String? name;
   final String phone;
   final String pin;
-  final String? id;
+  final int? id;
 
   UserData({
     this.name,
@@ -25,7 +25,7 @@ class UserData {
       name: map['name'] ?? '',
       phone: map['phone'] ?? '',
       pin: map['pin'] ?? '',
-      id: map['id'] ?? '',
+      id: map['id'] ?? 0,
     );
   }
 

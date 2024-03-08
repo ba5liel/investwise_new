@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:investwise_new/core/constants/storage_keys.dart';
+import 'package:investwise_new/core/modal/company.dart';
 import 'package:investwise_new/core/modal/setting/app_config.dart';
 import 'package:investwise_new/core/modal/user.dart';
 import 'package:investwise_new/core/service/app_storage_service.dart';
@@ -8,6 +9,9 @@ import 'package:investwise_new/core/service/app_storage_service.dart';
 class AuthService extends GetxService {
   final _storageService = Get.find<AppStorageService>();
   final firebaseAuthInstance = FirebaseAuth.instance;
+
+  Map<String, Company> refCompanyMap = {};
+  Map<String, double> refAmountMap = {};
   UserData? currentUser;
   String? token;
   bool rememberThisDevice = false;

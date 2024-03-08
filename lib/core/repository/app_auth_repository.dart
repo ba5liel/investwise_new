@@ -30,7 +30,7 @@ class AppAuthRepository {
     );
     log("=======>${response.data}");
 
-    return UserData.fromMap(response.data?['data']);
+    return UserData.fromMap(response.data!);
   }
 
   Future<bool> isUserExist(String phone) async {

@@ -10,5 +10,6 @@ class AppRoutes {
   static const dashboard = "/dashboard";
   static const otp = "/otp";
   static const chapaResult = "/chapa/result";
+  static const chapaResultSell = "/chapa/resultsell";
   static const Pin = "/Pin";
 }
