@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:investwise_new/core/constants/theme/app_color.dart';
+import 'package:investwise_new/presentation/shared/big_input.dart';
 import 'package:investwise_new/presentation/shared/my_stock.dart';
 import 'package:investwise_new/presentation/shared/text_input.dart';
 import 'package:investwise_new/routes/app_routes.dart';
@@ -53,7 +54,7 @@ class BuyStockScreen extends StatelessWidget {
                                   Get.back();
                                 },
                                 child: Container(
-                                  child: FaIcon(
+                                  child: const FaIcon(
                                     FontAwesomeIcons.arrowLeftLong,
                                     color: AppColors.whiteColor,
                                   ),
@@ -62,7 +63,7 @@ class BuyStockScreen extends StatelessWidget {
                               const SizedBox(
                                 width: 16,
                               ),
-                              Text(
+                              const Text(
                                 "Buy Stock",
                                 style: TextStyle(
                                   fontSize: 20,
@@ -78,7 +79,7 @@ class BuyStockScreen extends StatelessWidget {
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(100),
                                 color: AppColors.black20Color),
-                            child: FaIcon(
+                            child: const FaIcon(
                               FontAwesomeIcons.heart,
                               color: AppColors.whiteColor,
                             ),
@@ -101,14 +102,14 @@ class BuyStockScreen extends StatelessWidget {
                         const SizedBox(
                           height: 10,
                         ),
-                        TextInput(
+                        BigInput(
                           controller: _textEditingController,
                           onChanged: (val) {},
                         ),
                         const SizedBox(
                           height: 16,
                         ),
-                        Text(
+                        const Text(
                           "Available Balance in Stock/Equity 432,000 Br.",
                           style: TextStyle(
                             fontSize: 14,

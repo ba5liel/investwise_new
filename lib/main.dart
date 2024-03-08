@@ -42,6 +42,8 @@ class MainPage extends StatelessWidget {
 
   String _getInitialRoute() {
     final userStatusChecker = Get.put(AuthService());
-    return userStatusChecker.isLoggedIn() ? AppRoutes.home : AppRoutes.login;
+    return userStatusChecker.isLoggedIn()
+        ? AppRoutes.dashboard
+        : AppRoutes.login;
   }
 }
