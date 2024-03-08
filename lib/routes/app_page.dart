@@ -1,4 +1,5 @@
 import 'package:get/route_manager.dart';
+import 'package:investwise_new/core/modal/company.dart';
 import 'package:investwise_new/presentation/auth/login/login_binding.dart';
 import 'package:investwise_new/presentation/auth/login/login_screen.dart';
 import 'package:investwise_new/presentation/auth/otp/otp_binding.dart';
@@ -41,7 +42,17 @@ class AppPages {
         binding: PinBinding()),
     GetPage(
         name: AppRoutes.paymentConfirmation,
-        page: () => PaymentScreen(),
+        page: () => PaymentScreen(
+              sell: false,
+              amount: 10,
+              company: Company(
+                  id: 1,
+                  name: "Airlines",
+                  totalShares: 10,
+                  avlShares: 15,
+                  pricePerShare: 10,
+                  image: ""),
+            ),
         binding: PaymentBinding()),
     GetPage(
         name: AppRoutes.chapaResult,

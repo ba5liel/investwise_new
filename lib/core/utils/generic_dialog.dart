@@ -8,7 +8,7 @@ typedef DialogOptionBuilder<T> = Map<String, T?> Function();
 Future<T?> showGenericDialog<T>({
   required BuildContext context,
   required String title,
-  String? content,
+  Widget? content,
   required Color dialogColor,
   Widget? icon,
   required DialogOptionBuilder optionsBuilder,
@@ -20,14 +20,14 @@ Future<T?> showGenericDialog<T>({
       context: context,
       builder: (context) {
         return Dialog(
-          insetPadding: EdgeInsets.symmetric(horizontal: 25.w, vertical: 40.h),
+          insetPadding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 40.h),
           backgroundColor: AppColors.whiteColor,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
           child: SizedBox(
             width: double.maxFinite,
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 50.w, vertical: 15.h),
+              padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 15.h),
               child: SingleChildScrollView(
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
@@ -43,19 +43,7 @@ Future<T?> showGenericDialog<T>({
                       textAlign: TextAlign.center,
                       style: AppTextTheme.PR_SANS20W700CBlack,
                     ),
-                    (content != null)
-                        ? Column(
-                            children: [
-                              SizedBox(
-                                height: 15.h,
-                              ),
-                              Text(
-                                content,
-                                style: AppTextTheme.PR_SANS14W400CBlack60,
-                              )
-                            ],
-                          )
-                        : const SizedBox.shrink(),
+                    if (content != null) content,
                     SizedBox(height: 25.h),
                     SingleChildScrollView(
                       scrollDirection: Axis.horizontal,

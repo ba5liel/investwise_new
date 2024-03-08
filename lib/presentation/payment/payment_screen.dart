@@ -6,18 +6,32 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:investwise_new/core/constants/theme/app_color.dart';
 import 'package:investwise_new/core/constants/theme/app_theme.dart';
+import 'package:investwise_new/core/modal/company.dart';
+import 'package:investwise_new/core/utils/formatter.dart';
+import 'package:investwise_new/core/utils/generic_dialog.dart';
+import 'package:investwise_new/presentation/payment/payment_controller.dart';
+import 'package:investwise_new/presentation/shared/app_button.dart';
+import 'package:investwise_new/presentation/shared/otp_input.dart';
 import 'package:investwise_new/presentation/shared/widget/company_logo.dart';
 import 'package:investwise_new/routes/app_routes.dart';
 
-class PaymentScreen extends StatelessWidget {
-  PaymentScreen({super.key});
-
+class PaymentScreen extends GetView<PaymentController> {
+  PaymentScreen(
+      {super.key,
+      required this.sell,
+      required this.amount,
+      required this.company});
+  final bool sell;
+  final double amount;
+  final Company company;
   final _chars =
       'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
   final Random _rnd = Random();
 
   String getRandomString(int length) => String.fromCharCodes(Iterable.generate(
       length, (_) => _chars.codeUnitAt(_rnd.nextInt(_chars.length))));
+
+  TextEditingController pinController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +50,7 @@ class PaymentScreen extends StatelessWidget {
                       icon: Icon(Icons.arrow_back, size: 28.sp)),
                   SizedBox(width: 5.w),
                   Text(
-                    "Preview Buy",
+                    "Preview ${sell ? 'Sell' : 'Buy'}",
                     style: AppTextTheme.PR_SANSHeaderStyle,
                   )
                 ],
@@ -52,15 +66,14 @@ class PaymentScreen extends StatelessWidget {
                     children: [
                       Row(
                         children: [
-                          const CompanyLogoWidget(
-                              image: "assets/company_logo/airlines.png"),
+                          CompanyLogoWidget(image: company.image),
                           const SizedBox(width: 15),
                           Column(
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Spotify',
+                                company.name,
                                 style: AppTextTheme.PR_SANSSubTitleStyle,
                               ),
                               SizedBox(height: 8.h),
@@ -69,7 +82,7 @@ class PaymentScreen extends StatelessWidget {
                           )
                         ],
                       ),
-                      const Text('Buy in ETB')
+                      Text("${sell ? 'Sell' : 'Buy'} in ETB")
                     ],
                   ),
                   SizedBox(height: 20.h),
@@ -82,37 +95,37 @@ class PaymentScreen extends StatelessWidget {
                         borderRadius: BorderRadius.circular(20.r)),
                     padding:
                         EdgeInsets.symmetric(horizontal: 30.h, vertical: 25.w),
-                    child: const Column(
+                    child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         PreviewBuyInfoTile(
                           title: 'Market Price',
-                          value: '\$71.05',
+                          value: AppFormatter.formatCurrency(71.05),
                         ),
-                        SizedBox(height: 15.0),
-                        PreviewBuyInfoTile(
+                        const SizedBox(height: 15.0),
+                        const PreviewBuyInfoTile(
                           title: 'Number of Shares',
                           value: '0.013659756',
                         ),
-                        SizedBox(height: 15.0),
-                        Divider(thickness: .1),
-                        SizedBox(height: 15.0),
+                        const SizedBox(height: 15.0),
+                        const Divider(thickness: .1),
+                        const SizedBox(height: 15.0),
                         PreviewBuyInfoTile(
                           title: 'Amount',
-                          value: '\$10,000.00',
+                          value: AppFormatter.formatCurrency(10000.00),
                         ),
-                        SizedBox(height: 15.0),
+                        const SizedBox(height: 15.0),
                         PreviewBuyInfoTile(
                           title: 'Trading Fee',
-                          value: '\$50.00',
+                          value: AppFormatter.formatCurrency(50.00),
                         ),
-                        SizedBox(height: 15.0),
-                        Divider(thickness: .1),
-                        SizedBox(height: 15.0),
+                        const SizedBox(height: 15.0),
+                        const Divider(thickness: .1),
+                        const SizedBox(height: 15.0),
                         PreviewBuyInfoTile(
                           title: 'Total Cost',
-                          value: '\$10,050.00',
+                          value: AppFormatter.formatCurrency(amount),
                           valueColor: AppColors.greenColor,
                         ),
                       ],
@@ -122,35 +135,78 @@ class PaymentScreen extends StatelessWidget {
               ),
             ),
             const Spacer(),
-            ElevatedButton(
-              onPressed: () {
-                print("button presssed");
-                // Add your onPressed code here!
-                Chapa.paymentParameters(
-                  context: context, // context
-                  publicKey: 'CHASECK_TEST-Pi4OhLe2XV3Aw3Qpt7eZHaugKMe1HKvm',
-                  currency: 'etb',
-                  amount: '300',
-                  email: 'xyz@gmail.com',
-                  phone: '251911223344',
-                  firstName: 'testname',
-                  lastName: 'lastName',
-                  txRef: getRandomString(10),
-                  title: 'title',
-                  desc: 'desc',
-                  namedRouteFallBack:
-                      AppRoutes.chapaResult, // fall back route name
-                );
-              },
-              style: ElevatedButton.styleFrom(
-                foregroundColor: Colors.white,
-                backgroundColor: Colors.green, // foreground (text) color
-              ),
-              child: const Text('Buy Now'),
-            ),
+            AppButton(
+                text: 'Pay with chapa 🍑',
+                onPressed: () {
+                  showGenericDialog<bool>(
+                    context: Get.context!,
+                    title: "Please Enter your Pin!",
+                    dialogColor: AppColors.primaryColor,
+                    content: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: OtpInput(
+                          controller: pinController,
+                          validator: (value) {},
+                          onCompleted: (value) {}),
+                    ),
+                    optionsBuilder: () => {
+                      'Confirm': () {
+                        Get.back();
+                        // if (true) {
+                        //   return showError();
+                        // }
+                        _make_payment(context);
+                      },
+                      'Cancle': () {
+                        Get.back();
+                      },
+                    },
+                    selectedOption: 'Confirm',
+                  );
+                }),
           ],
         ),
       ),
+    );
+  }
+
+  void showError() {
+    showGenericDialog<bool>(
+      icon: Icon(
+        Icons.error,
+        size: 60.h,
+        color: AppColors.redColor,
+      ),
+      context: Get.context!,
+      title: "Pin Incorrect! :(",
+      dialogColor: AppColors.backgroundColor1,
+      optionsBuilder: () => {
+        'Okay': () {
+          Get.back();
+        },
+      },
+      selectedOption: 'Okay',
+    );
+  }
+
+  void _make_payment(BuildContext context) async {
+    var refid = await controller.makePay(company, amount);
+    print("button presssed");
+    // Add your onPressed code here!
+    // ignore: use_build_context_synchronously
+    Chapa.paymentParameters(
+      context: context, // context
+      publicKey: 'CHASECK_TEST-Pi4OhLe2XV3Aw3Qpt7eZHaugKMe1HKvm',
+      currency: 'etb',
+      amount: '1050',
+      email: 'xyz@gmail.com',
+      phone: '251911223344',
+      firstName: 'testname',
+      lastName: 'lastName',
+      txRef: refid,
+      title: 'title',
+      desc: 'desc',
+      namedRouteFallBack: AppRoutes.chapaResult, // fall back route name
     );
   }
 }

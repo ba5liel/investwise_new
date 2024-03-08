@@ -3,8 +3,11 @@ import 'dart:math';
 import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:investwise_new/core/constants/theme/app_color.dart';
+import 'package:investwise_new/presentation/shared/app_button.dart';
 import 'package:investwise_new/presentation/shared/widget/company_logo.dart';
+import 'package:investwise_new/routes/app_routes.dart';
 
 class PaymentSuccess extends StatefulWidget {
   PaymentSuccess({Key? key}) : super(key: key);
@@ -104,6 +107,19 @@ class _PaymentSuccessState extends State<PaymentSuccess> {
                             fontWeight: FontWeight.w400,
                             fontSize: 16.sp),
                       ),
+                      SizedBox(
+                        height: 20.h,
+                      ),
+                      const Divider(thickness: .1),
+                      SizedBox(
+                        height: 20.h,
+                      ),
+                      AppButton(
+                        text: "View my portfolio",
+                        onPressed: () {
+                          Get.toNamed(AppRoutes.home);
+                        },
+                      )
                     ],
                   ),
                 ),

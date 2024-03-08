@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:investwise_new/core/repository/app_payment_repository.dart';
 import 'package:investwise_new/core/service/app_api_service.dart';
 import 'package:investwise_new/core/service/app_auth_service.dart';
 import 'package:investwise_new/core/service/app_setting_service.dart';
@@ -28,6 +29,8 @@ Future<void> initAppService() async {
 
   var appAPIService = AppApiService();
   Get.put<AppApiService>(appAPIService);
+
+  Get.put<AppPaymentRepository>(AppPaymentRepository());
 
   // Get.put(AppPropertyService());
 }

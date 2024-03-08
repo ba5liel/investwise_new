@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AppButton extends StatefulWidget {
   final void Function() onPressed;
@@ -19,9 +20,10 @@ class _AppButtonState extends State<AppButton> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: double.infinity,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
+          padding: EdgeInsets.symmetric(horizontal: 25.w, vertical: 15.h),
           backgroundColor:
               widget.isButtonEnabled ? const Color(0xff24d598) : Colors.grey,
           textStyle: const TextStyle(
