@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:chapasdk/chapa_payment%20initializer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -5,9 +7,17 @@ import 'package:get/get.dart';
 import 'package:investwise_new/core/constants/theme/app_color.dart';
 import 'package:investwise_new/core/constants/theme/app_theme.dart';
 import 'package:investwise_new/presentation/shared/widget/company_logo.dart';
+import 'package:investwise_new/routes/app_routes.dart';
 
 class PaymentScreen extends StatelessWidget {
-  const PaymentScreen({super.key});
+  PaymentScreen({super.key});
+
+  final _chars =
+      'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
+  final Random _rnd = Random();
+
+  String getRandomString(int length) => String.fromCharCodes(Iterable.generate(
+      length, (_) => _chars.codeUnitAt(_rnd.nextInt(_chars.length))));
 
   @override
   Widget build(BuildContext context) {
@@ -118,17 +128,18 @@ class PaymentScreen extends StatelessWidget {
                 // Add your onPressed code here!
                 Chapa.paymentParameters(
                   context: context, // context
-                  publicKey: 'CHAPUBK_TEST-mRl4lOoKqWGyDTVLF91g1fMGUkggdyL4',
+                  publicKey: 'CHASECK_TEST-Pi4OhLe2XV3Aw3Qpt7eZHaugKMe1HKvm',
                   currency: 'etb',
                   amount: '300',
                   email: 'xyz@gmail.com',
-                  phone: '911223344',
+                  phone: '251911223344',
                   firstName: 'testname',
                   lastName: 'lastName',
-                  txRef: '55ttyyy',
+                  txRef: getRandomString(10),
                   title: 'title',
                   desc: 'desc',
-                  namedRouteFallBack: '/checkoutPage', // fall back route name
+                  namedRouteFallBack:
+                      AppRoutes.chapaResult, // fall back route name
                 );
               },
               child: const Text('Buy Now'),

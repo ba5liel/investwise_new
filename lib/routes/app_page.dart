@@ -5,6 +5,7 @@ import 'package:investwise_new/presentation/home/home_binding.dart';
 import 'package:investwise_new/presentation/home/home_screen.dart';
 import 'package:investwise_new/presentation/payment/payment_binding.dart';
 import 'package:investwise_new/presentation/payment/payment_screen.dart';
+import 'package:investwise_new/presentation/payment/payment_success.dart';
 import 'package:investwise_new/routes/app_routes.dart';
 
 class AppPages {
@@ -21,7 +22,11 @@ class AppPages {
         binding: LoginBinding()),
     GetPage(
         name: AppRoutes.paymentConfirmation,
-        page: () => const PaymentScreen(),
+        page: () => PaymentScreen(),
+        binding: PaymentBinding()),
+    GetPage(
+        name: AppRoutes.chapaResult,
+        page: () => PaymentSuccess(),
         binding: PaymentBinding()),
   ];
 }

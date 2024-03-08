@@ -4,4 +4,5 @@ class AppRoutes {
   static const paymentConfirmation = '/payment/confirmation';
   static const home = "/home";
   static const otp = "/otp";
+  static const chapaResult = "/chapa/result";
 }
