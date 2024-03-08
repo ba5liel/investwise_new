@@ -5,4 +5,5 @@ class StorageKeys {
   static const String currentUserKey = "investwise_new.user.key";
   static const String tokenKey = "investwise_new.token.key";
   static const String refreshTokenKey = "investwise_new.refresh.token.key";
+  static const String userdata = "USER_DATA";
 }

@@ -1,96 +1,70 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
-import 'package:investwise_new/core/modal/user.dart';
-import 'package:investwise_new/core/repository/app_auth_repository.dart';
-import 'package:investwise_new/core/service/app_storage_service.dart';
 import 'package:investwise_new/core/constants/storage_keys.dart';
+import 'package:investwise_new/core/modal/setting/app_config.dart';
+import 'package:investwise_new/core/modal/user.dart';
+import 'package:investwise_new/core/service/app_storage_service.dart';
 
-enum AuthStatus { authenticated, unauthenticated, blocked }
+class AuthService extends GetxService {
+  final _storageService = Get.find<AppStorageService>();
+  final firebaseAuthInstance = FirebaseAuth.instance;
 
-class AppAuthService extends GetxService {
-  final AppStorageService _storageService = Get.find<AppStorageService>();
-  late AppAuthRepository _authRepository;
-
-  AuthStatus authStatus = AuthStatus.unauthenticated;
-
-  User? user;
-  String? authToken;
-
-  void setRepository(AppAuthRepository appAuthRepository) {
-    _authRepository = appAuthRepository;
-  }
-
-  Future<void> init() async {
-    var userMap = _storageService.readMap(StorageKeys.currentUserKey);
-    if (userMap != null) {
-      user = User.fromMap(userMap);
+  String? token;
+  bool rememberThisDevice = false;
+  Future<AuthService> init() async {
+    UserData? user = await userData();
+    if (user != null) {
+      rememberThisDevice = true;
     }
-    authToken = _storageService.read(StorageKeys.tokenKey);
-    // refreshToken = _storageService.read(StorageKeys.refreshTokenKey);
 
-    if (authToken != null) authStatus = AuthStatus.authenticated;
+    return this;
   }
 
-  Future<void> signup(String fullName, String email, String password) async {
-    user = await _authRepository.signUp(fullName, email, password);
-
-    setUser(user!);
-  }
-
-  Future<void> signWithGoogle(String token) async {
-    user = await _authRepository.signWithGoogle(token);
-
-    setUser(user!);
-  }
-
-  Future<void> signWithFacebook(String token) async {
-    user = await _authRepository.signWithFacebook(token);
-
-    setUser(user!);
-  }
-
-  Future<void> signin(String email, String password) async {
-    try {
-      user = await _authRepository.signIn(email, password);
-
-      setUser(user!);
-    } catch (e) {
-      rethrow;
-    }
-  }
+  bool isLoggedIn() => rememberThisDevice;
 
   Future<void> logout() async {
-    user = null;
+    await firebaseAuthInstance.signOut();
     await _storageService.clear();
-    // await Get.offAllNamed(AppRoutes.EMAILAUTHENTICATIONPAGE);
   }
 
-  Future<void> requestOTP(String email) async {
-    await _authRepository.requestOTP(email);
-  }
+  Future<UserData?> userData() async {
+    final storedData = await _storageService.read(StorageKeys.currentUserKey);
 
-  Future<void> resendOtp(String email) async {
-    await _authRepository.resendOtp(email);
-  }
-
-  Future<String> verifyOtp(String email, String otp) async {
-    return await _authRepository.verifyOtp(email, otp);
-  }
-
-  Future<String> resetPassword(
-      String token, String newpassword, String confirmPassword) async {
-    return await _authRepository.resetPassword(
-        token, newpassword, confirmPassword);
-  }
-
-  bool setUser(User newUser, {bool settoken = true}) {
-    _storageService.write(StorageKeys.currentUserKey, newUser.toMap());
-    user = newUser;
-    if (settoken) {
-      // authToken = newUser.token;
-
-      _storageService.write(StorageKeys.tokenKey, authToken);
-      // _storageService.write(StorageKeys.refreshTokenKey, refreshToken);
+    if (storedData != null && storedData is Map<dynamic, dynamic>) {
+      final userData = UserData.fromMap(storedData.cast<String, dynamic>());
+      return userData;
+    } else {
+      return null;
     }
-    return true;
+  }
+
+  Future<void> signInWithPhone(
+      String phoneNumber,
+      int? resendToken,
+      Function(String error) onError,
+      Function(PhoneAuthCredential credential) onCompleted,
+      Function(String verificationId, int? resendToken) onOTPCodeSent) async {
+    FirebaseAuth.instance
+        .verifyPhoneNumber(
+            phoneNumber: phoneNumber,
+            verificationCompleted: (credential) async {
+              onCompleted(credential);
+            },
+            verificationFailed: (exception) {
+              if (exception.code == "invalid-phone-number") {
+                onError("Invalid phone number");
+              } else {
+                onError(exception.message!);
+              }
+            },
+            codeSent: (verificationId, resendToken) {
+              onOTPCodeSent(verificationId, resendToken);
+            },
+            forceResendingToken: resendToken,
+            timeout: const Duration(seconds: 8),
+            codeAutoRetrievalTimeout: (verificationId) {})
+        .timeout(const Duration(minutes: 2), onTimeout: () {
+      onError("Connection Failed");
+    });
   }
 }

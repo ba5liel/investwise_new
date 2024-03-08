@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:dio/dio.dart' as dio;
@@ -12,7 +13,7 @@ import 'package:investwise_new/core/exceptions/app_http_exceptions.dart';
 class AppApiService extends GetxService {
   late dio.Dio _dio;
   final AppSettingService _appSettingService = Get.find<AppSettingService>();
-  final AppAuthService _appAuthService = Get.find<AppAuthService>();
+  final AuthService _appAuthService = Get.find<AuthService>();
 
   AppApiService() {
     _dio = dio.Dio(
@@ -37,6 +38,7 @@ class AppApiService extends GetxService {
       if (response.data == null) throw NullHTTPReponseException(path, data);
       return APIResponse<T>.fromMap(Map<String, dynamic>.from(response.data!));
     } on dio.DioException catch (e) {
+      log(e.toString());
       throw _handleDioError(e);
     } on SocketException catch (e) {
       throw UnknownHttpException('Pre error:', e.toString());
@@ -63,16 +65,14 @@ class AppApiService extends GetxService {
       {required dynamic data,
       Map<String, dynamic>? queryParameters,
       dio.Options? options}) async {
-    print(_appAuthService.authToken);
     return await post(path,
         data: data,
         options: options == null
-            ? dio.Options(headers: {
-                'Authorization': 'Bearer ${_appAuthService.authToken}'
-              })
+            ? dio.Options(
+                headers: {'Authorization': 'Bearer ${_appAuthService.token}'})
             : dio.Options(headers: {
                 ...(options.headers ?? {}),
-                'Authorization': 'Bearer ${_appAuthService.authToken}'
+                'Authorization': 'Bearer ${_appAuthService.token}'
               }));
   }
 
@@ -84,12 +84,11 @@ class AppApiService extends GetxService {
         data: data,
         // ignore: prefer_if_null_operators
         options: options == null
-            ? dio.Options(headers: {
-                'Authorization': 'Bearer ${_appAuthService.authToken}'
-              })
+            ? dio.Options(
+                headers: {'Authorization': 'Bearer ${_appAuthService.token}'})
             : dio.Options(headers: {
                 ...(options.headers ?? {}),
-                'Authorization': 'Bearer ${_appAuthService.authToken}'
+                'Authorization': 'Bearer ${_appAuthService.token}'
               }));
   }
 

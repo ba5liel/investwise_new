@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:investwise_new/core/repository/app_payment_repository.dart';
 import 'package:investwise_new/core/service/app_api_service.dart';
 import 'package:investwise_new/core/service/app_auth_service.dart';
 import 'package:investwise_new/core/service/app_setting_service.dart';
@@ -20,14 +21,16 @@ Future<void> initAppService() async {
   Get.put<AppSettingService>(appSettingService);
 
   //App Auth service
-  AppAuthService appAuthService = AppAuthService();
+  AuthService appAuthService = AuthService();
   await appAuthService.init();
-  Get.put<AppAuthService>(appAuthService);
+  Get.put<AuthService>(appAuthService);
 
   //App API service
 
   var appAPIService = AppApiService();
   Get.put<AppApiService>(appAPIService);
+
+  Get.put<AppPaymentRepository>(AppPaymentRepository());
 
   // Get.put(AppPropertyService());
 }

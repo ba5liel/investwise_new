@@ -9,4 +9,6 @@ class AppRoutes {
   static const discover = "/discover";
   static const dashboard = "/dashboard";
   static const otp = "/otp";
+  static const chapaResult = "/chapa/result";
+  static const Pin = "/Pin";
 }
