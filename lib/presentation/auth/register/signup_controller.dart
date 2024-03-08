@@ -2,7 +2,9 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:investwise_new/core/constants/storage_keys.dart';
+import 'package:investwise_new/core/modal/user.dart';
 import 'package:investwise_new/core/repository/app_auth_repository.dart';
+import 'package:investwise_new/core/service/app_auth_service.dart';
 import 'package:investwise_new/core/service/app_storage_service.dart';
 import 'package:investwise_new/presentation/auth/login/login_controller.dart';
 import 'package:investwise_new/routes/app_routes.dart';
@@ -17,6 +19,8 @@ class SignupController extends GetxController {
   final _storage = Get.find<AppStorageService>();
   final _authRepository = Get.put(AppAuthRepository());
   final _logController = Get.put(LoginController());
+
+  final AuthService _authService = Get.find<AuthService>();
 
   //validate phone
   String phoneValidation(phone) {
@@ -105,6 +109,7 @@ class SignupController extends GetxController {
     }
 
     _storage.write(StorageKeys.currentUserKey, userData);
+    _authService.currentUser = UserData.fromMap(userData);
     _authRepository.signUp(
         userData['name'], userData['phone'], userData['nationalId'], pin);
 

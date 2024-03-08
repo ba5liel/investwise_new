@@ -6,10 +6,12 @@ import 'package:investwise_new/core/constants/storage_keys.dart';
 import 'package:investwise_new/core/service/app_api_service.dart';
 import 'package:investwise_new/core/modal/response/api_response.dart';
 import 'package:investwise_new/core/modal/user.dart';
+import 'package:investwise_new/core/service/app_auth_service.dart';
 import 'package:investwise_new/core/service/app_storage_service.dart';
 
 class AppAuthRepository {
   final AppApiService _appApiService = Get.find<AppApiService>();
+  final AuthService _authService = Get.find<AuthService>();
   final _storage = Get.find<AppStorageService>();
 
   Future<UserData> signUp(
@@ -72,6 +74,7 @@ class AppAuthRepository {
         response.data.containsKey('data')) {
       final userData = UserData.fromMap(response.data['data']);
       _storage.write(StorageKeys.currentUserKey, userData);
+      _authService.currentUser = userData;
       EasyLoading.dismiss();
       // Assuming successful login, use userData here (store, navigate, etc.)
       return true;
